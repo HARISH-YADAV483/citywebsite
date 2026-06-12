@@ -6,10 +6,16 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 30)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    const handleScroll = () => {
+      // Using a stable threshold based on window height minus the initial navbar height (approx 76px).
+      // This prevents the flickering/jitter that happens when the navbar's padding shrinks.
+      setScrolled(window.scrollY >= window.innerHeight - 76);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial scroll position
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>

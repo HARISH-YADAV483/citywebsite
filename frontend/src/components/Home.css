@@ -25,12 +25,12 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.88) 0%,
-    rgba(0, 0, 0, 0.5) 60%,
-    rgba(0, 0, 0, 0.15) 100%
-  );
+background: linear-gradient(
+  135deg,
+  rgba(0, 0, 0, 0.6) 0%,
+  rgba(15, 23, 42, 0.55) 50%,
+  rgba(13, 148, 136, 0.25) 100%
+);
 }
 
 .hero-content {
