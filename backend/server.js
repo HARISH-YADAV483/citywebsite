@@ -1,0 +1,35 @@
+require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
+const app = express();
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Database connection
+const connectdb = async () => {
+    try {
+        const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017/mallitiba";
+        await mongoose.connect(mongoUri);
+        console.log("MongoDB connected successfully");
+    } catch (error) {
+        console.error("MongoDB connection failed:", error.message);
+        process.exit(1);
+    }
+};
+
+connectdb();
+
+// Routes
+app.get("/", (req, res) => {
+    res.send("Backend is running securely!");
+});
+
+// Start Server
+const PORT = process.env.PORT || 3003;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
