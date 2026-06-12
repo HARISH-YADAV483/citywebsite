@@ -9,27 +9,7 @@ function Home() {
   const [detailOpen, setDetailOpen] = useState(false)
   const [loaderHovered, setLoaderHovered] = useState(false)
   
-  // Scroll animation state
-  const exploreRef = useRef(null)
-  const [exploreVisible, setExploreVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setExploreVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.15 } // Trigger when 15% of the section is visible
-    )
-
-    if (exploreRef.current) {
-      observer.observe(exploreRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
+  // Scroll animation removed as requested
 
   return (
     <>
@@ -73,7 +53,7 @@ function Home() {
         </div>
 
         {/* ── Map + Card Section ───────────────────── */}
-        <section className={`explore-section ${exploreVisible ? 'scrolled-in' : ''}`} id="explore" ref={exploreRef}>
+        <section className="explore-section" id="explore">
           
           {/* Info Card Panel (Now on Left) */}
           <div className="info-panel" id="about">
