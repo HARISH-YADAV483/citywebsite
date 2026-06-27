@@ -32,7 +32,7 @@ const highlights = [
   },
 ]
 
-const API = 'http://localhost:3003'
+const API = import.meta.env.VITE_API_URL || 'http://localhost:3003'
 
 function MalliTibbaDetail() {
   const navigate = useNavigate()

@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import './FullBlog.css'
 
-const API = 'http://localhost:3003'
+const API = import.meta.env.VITE_API_URL || 'http://localhost:3003'
 
 function FullBlog() {
   const { id } = useParams()
