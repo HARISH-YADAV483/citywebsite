@@ -1,12 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import narnaul from '../assets/narnaul.png'
-import mallitibba from '../assets/mallitibba.png'
 import video from '../assets/video.mp4'
-import MalliTibbaDetail from './MalliTibbaDetail'
 import './Home.css'
 
 function Home() {
-  const [detailOpen, setDetailOpen] = useState(false)
+  const navigate = useNavigate()
   const [loaderHovered, setLoaderHovered] = useState(false)
   
   // Scroll animation removed as requested
@@ -31,7 +30,7 @@ function Home() {
               <button
                 className="hero-btn hero-btn--primary"
                 id="explore-btn"
-                onClick={() => setDetailOpen(true)}
+                onClick={() => navigate('/story')}
               >
                 Explore Malli Tibba
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -90,7 +89,7 @@ function Home() {
               <button
                 className="info-panel__cta"
                 id="info-panel-cta-btn"
-                onClick={() => setDetailOpen(true)}
+                onClick={() => navigate('/story')}
               >
                 Discover the Full Story
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -145,7 +144,7 @@ function Home() {
               <button
                 className={`map-pin ${loaderHovered ? 'map-pin--hovered' : ''}`}
                 id="map-pin-btn"
-                onClick={() => setDetailOpen(true)}
+                onClick={() => navigate('/story')}
                 onMouseEnter={() => setLoaderHovered(true)}
                 onMouseLeave={() => setLoaderHovered(false)}
                 aria-label="Open Malli Tibba details"
@@ -169,10 +168,6 @@ function Home() {
         </section>
       </div>
 
-      {/* ── Detail Page ──────────────────────────── */}
-      {detailOpen && (
-        <MalliTibbaDetail onClose={() => setDetailOpen(false)} />
-      )}
     </>
   )
 }

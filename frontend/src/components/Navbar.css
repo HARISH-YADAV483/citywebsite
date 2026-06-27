@@ -22,6 +22,27 @@
   box-shadow: 0 4px 32px rgba(79, 39, 68, 0.12);
 }
 
+/* ─── Story Page Navbar Variant ──────────────────────────── */
+/* Phase 1: over the hero — transparent with white text */
+.navbar--story {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 1px solid transparent;
+  box-shadow: none;
+  padding: 26px 40px;
+}
+
+/* Phase 2: scrolled past hero — solid warm beige */
+.navbar--story.navbar--scrolled {
+  background: rgba(251, 238, 217, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(79, 39, 68, 0.18);
+  box-shadow: 0 4px 28px rgba(79, 39, 68, 0.10);
+  padding: 18px 40px;
+}
+
 /* Brand */
 .navbar__brand {
   display: flex;
@@ -60,6 +81,29 @@
   text-shadow: none;
 }
 
+.navbar--story .navbar__title {
+  /* Inherits white text from the base .navbar__title when over hero */
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+  letter-spacing: 2px;
+}
+
+.navbar--story.navbar--scrolled .navbar__title {
+  color: rgb(79, 39, 68);
+  text-shadow: none;
+}
+
+/* Logo dot: white glow over hero, mauve when scrolled */
+.navbar--story .navbar__logo-dot {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.6);
+}
+
+.navbar--story.navbar--scrolled .navbar__logo-dot {
+  background: rgb(79, 39, 68);
+  box-shadow: 0 0 14px rgba(79, 39, 68, 0.5);
+}
+
 /* Links */
 .navbar__links {
   list-style: none;
@@ -70,7 +114,9 @@
   padding: 0;
 }
 
-.navbar__links li a {
+/* Cover both <a> and React Router <Link> elements */
+.navbar__links li a,
+.navbar__links li a:is(a) {
   font-family: 'Urbanist', sans-serif;
   font-size: 1rem;
   font-weight: 600;
@@ -86,6 +132,26 @@
 .navbar--scrolled .navbar__links li a {
   color: rgba(79, 39, 68, 0.75);
   text-shadow: none;
+}
+
+/* Story page — over hero: white links */
+.navbar--story .navbar__links li a {
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.25);
+}
+
+.navbar--story .navbar__links li a:hover {
+  color: #fff;
+}
+
+/* Story page — scrolled past hero: warm dark links */
+.navbar--story.navbar--scrolled .navbar__links li a {
+  color: rgba(79, 39, 68, 0.80);
+  text-shadow: none;
+}
+
+.navbar--story.navbar--scrolled .navbar__links li a:hover {
+  color: rgb(79, 39, 68);
 }
 
 .navbar__links li a::after {
@@ -157,6 +223,15 @@
 }
 
 .navbar--scrolled .navbar__hamburger span {
+  background: rgb(79, 39, 68);
+}
+
+/* Story navbar hamburger — white over hero, dark when scrolled */
+.navbar--story .navbar__hamburger span {
+  background: #fff;
+}
+
+.navbar--story.navbar--scrolled .navbar__hamburger span {
   background: rgb(79, 39, 68);
 }
 

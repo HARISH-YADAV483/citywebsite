@@ -1,26 +1,32 @@
-/* ─── Detail Page Overlay ───────────────────────────────── */
+/* ─── Detail Page ───────────────────────────────── */
 .detail-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
+  position: relative;
+  min-height: 100vh;
+  z-index: 1;
   background: rgb(243, 233, 215);
-  overflow-y: auto;
   overflow-x: hidden;
-  animation: slideInFromBottom 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  animation: fadeInPage 0.5s ease forwards;
   scroll-behavior: smooth;
 }
 
-@keyframes slideInFromBottom {
-  from { transform: translateY(100%); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+@keyframes fadeInPage {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Close Button */
+/* Close / Back Button */
 .detail-close {
   position: fixed;
   top: 24px;
   right: 24px;
-  z-index: 2100;
+  z-index: 100;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -68,19 +74,22 @@
 }
 
 @keyframes subtleZoom {
-  from { transform: scale(1.05); }
-  to   { transform: scale(1.12); }
+  from {
+    transform: scale(1.05);
+  }
+
+  to {
+    transform: scale(1.12);
+  }
 }
 
 .detail-hero__gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgb(79, 39, 68) 0%,
-    rgba(79, 39, 68, 0.6) 50%,
-    rgba(79, 39, 68, 0.15) 100%
-  );
+  background: linear-gradient(to top,
+      rgb(79, 39, 68) 0%,
+      rgba(79, 39, 68, 0.6) 50%,
+      rgba(79, 39, 68, 0.15) 100%);
 }
 
 .detail-hero__content {
@@ -92,8 +101,15 @@
 }
 
 @keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .detail-hero__badge {
@@ -356,8 +372,15 @@
 }
 
 @keyframes pin-pulse {
-  0%, 100% { box-shadow: 0 0 0 6px rgba(79, 39, 68, 0.2), 0 0 0 12px rgba(79, 39, 68, 0.08); }
-  50%       { box-shadow: 0 0 0 10px rgba(79, 39, 68, 0.25), 0 0 0 20px rgba(79, 39, 68, 0.05); }
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 6px rgba(79, 39, 68, 0.2), 0 0 0 12px rgba(79, 39, 68, 0.08);
+  }
+
+  50% {
+    box-shadow: 0 0 0 10px rgba(79, 39, 68, 0.25), 0 0 0 20px rgba(79, 39, 68, 0.05);
+  }
 }
 
 .detail-map-section__pin span {
@@ -444,5 +467,1358 @@
     gap: 16px;
     text-align: center;
     padding: 24px;
+  }
+}
+
+/* ─── Culture & Festivals Section ──────────────────────────── */
+.fest-section {
+  padding: 60px 4% 80px;
+  background: rgb(243, 233, 215);
+}
+
+.fest-section__heading {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgb(79, 39, 68);
+  margin-bottom: 4px;
+}
+
+.fest {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-top: 36px;
+  align-items: start;
+}
+
+/* ── Left Panel ── */
+.fest__left {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Large image with teal offset block behind it */
+.fest__img-wrap {
+  position: relative;
+  width: 85%;
+}
+
+.fest__img-wrap::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: -20px;
+  width: 100%;
+  height: 100%;
+  background: rgb(154, 204, 192);
+  z-index: 0;
+  border-radius: 4px;
+}
+
+.fest__img-wrap img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+}
+
+/* Dark mauve title card below the image */
+.fest__title-card {
+  background: rgb(79, 39, 68);
+  color: #fff;
+  padding: 18px 22px;
+  width: calc(85% - 44px);
+  margin-top: 0;
+  border-radius: 0 0 4px 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.fest__title-card h2 {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Text + Read more below the card */
+.fest__desc {
+  margin-top: 22px;
+  width: 85%;
+}
+
+.fest__desc p {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1rem;
+  color: rgba(60, 30, 55, 0.75);
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+
+.fest__readmore {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgb(79, 39, 68);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  transition: gap 0.2s ease;
+}
+
+.fest__readmore:hover {
+  gap: 10px;
+}
+
+/* ── Right Panel ── */
+.fest__right {
+  display: flex;
+  flex-direction: column;
+}
+
+.fest__explore-badge {
+  display: inline-block;
+  background: rgb(79, 39, 68);
+  color: #fff;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 10px 24px;
+  border-radius: 4px;
+  margin-bottom: 28px;
+  align-self: center;
+}
+
+/* Each explore item */
+.fest__items {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.fest__item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(79, 39, 68, 0.12);
+  align-items: start;
+}
+
+.fest__item:first-child {
+  border-top: 1px solid rgba(79, 39, 68, 0.12);
+}
+
+.fest__item-img {
+  width: 110px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.fest__item-body h3 {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: rgb(79, 39, 68);
+  margin: 0 0 6px;
+  line-height: 1.3;
+}
+
+.fest__item-body p {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(60, 30, 55, 0.7);
+  line-height: 1.6;
+  margin: 0 0 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.fest__item-link {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgb(79, 39, 68);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  transition: gap 0.2s ease;
+}
+
+.fest__item-link:hover {
+  gap: 9px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .fest {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .fest__img-wrap,
+  .fest__title-card,
+  .fest__desc {
+    width: 100%;
+  }
+
+  .fest__title-card {
+    width: calc(100% - 44px);
+  }
+
+  .fest__explore-badge {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .fest-section {
+    padding: 40px 5% 60px;
+  }
+
+  .fest__img-wrap img {
+    height: 240px;
+  }
+
+  .fest__item {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .fest__item-img {
+    width: 80px;
+    height: 60px;
+  }
+}
+
+/* ─── Trip Ideas / Culture Section ──────────────────────────── */
+.trip-ideas {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 0;
+  padding: 60px 4% 80px;
+  background: rgb(243, 233, 215);
+  align-items: start;
+}
+
+/* Left: dark intro card */
+.trip-ideas__intro {
+  background: rgb(79, 39, 68);
+  color: #fff;
+  padding: 48px 36px;
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.trip-ideas__intro-title {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0 0 16px;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.trip-ideas__intro-desc {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 300;
+  margin: 0 0 24px;
+}
+
+.trip-ideas__explore-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  position: relative;
+  width: fit-content;
+  margin-top: auto;
+  transition: gap 0.2s ease;
+}
+
+.trip-ideas__explore-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 1.5px;
+  background: rgba(255, 255, 255, 0.7);
+  transition: width 0.3s ease;
+}
+
+.trip-ideas__explore-link:hover {
+  gap: 10px;
+}
+
+.trip-ideas__explore-link:hover::after {
+  width: 100%;
+}
+
+/* Right: cards row */
+.trip-ideas__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding-left: 40px;
+}
+
+/* Individual card */
+.trip-card {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+.trip-card__img-wrap {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 14px;
+}
+
+.trip-card__img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+  transition: transform 0.4s ease;
+}
+
+.trip-card:hover .trip-card__img {
+  transform: scale(1.04);
+}
+
+.trip-card__title {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: rgb(40, 20, 36);
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+/* Bullet list style (card 1) */
+.trip-card__bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+}
+
+.trip-card__bullets li {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.92rem;
+  color: rgba(60, 30, 55, 0.75);
+  line-height: 1.6;
+  padding: 3px 0 3px 18px;
+  position: relative;
+}
+
+.trip-card__bullets li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: rgb(79, 39, 68);
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+/* Paragraph style (cards 2 & 3) */
+.trip-card__desc {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.92rem;
+  color: rgba(60, 30, 55, 0.75);
+  line-height: 1.65;
+  margin: 0 0 12px;
+}
+
+.trip-card__readmore {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: rgb(79, 39, 68);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: gap 0.2s ease;
+  margin-top: auto;
+}
+
+.trip-card__readmore:hover {
+  gap: 10px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .trip-ideas {
+    grid-template-columns: 220px 1fr;
+  }
+
+  .trip-ideas__cards {
+    gap: 20px;
+    padding-left: 28px;
+  }
+}
+
+@media (max-width: 900px) {
+  .trip-ideas {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .trip-ideas__intro {
+    min-height: auto;
+  }
+
+  .trip-ideas__cards {
+    grid-template-columns: repeat(3, 1fr);
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .trip-ideas__cards {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+/* ─── History & Heritage Section ────────────────────────────── */
+.history-section {
+  padding: 70px 5% 120px;
+  background: rgb(243, 233, 215);
+  overflow: visible;
+}
+
+.history-section__header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 56px;
+}
+
+.history-section__title {
+  font-family: 'Urbanist', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 800;
+  color: rgb(79, 39, 68);
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   The stage: fixed height, position:relative so all 4
+   children (2 cards + 2 photos) can be absolutely placed.
+───────────────────────────────────────────────────────────── */
+.history-grid {
+  position: relative;
+  height: 780px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.history-squiggle {
+  position: absolute;
+  top: 15px;
+  left: 45%;
+  z-index: 0;
+}
+
+/* ── Shared card text style ── */
+.hcard {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.hcard__title-bar {
+  padding: 18px 24px;
+  margin-left: -24px;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.hcard__title-bar--orange {
+  background: rgb(240, 110, 80);
+}
+
+.hcard__title-bar--purple {
+  background: rgb(79, 39, 68);
+}
+
+.hcard__body {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+/* 1. Maroon card — top-left */
+.hcard--maroon {
+  top: 0;
+  left: 5%;
+  width: 42%;
+}
+
+.hcard--maroon .hcard__body {
+  background: rgb(79, 39, 68);
+}
+
+/* 4. Golden card — bottom-right */
+.hcard--golden {
+  top: 400px;
+  right: 5%;
+  width: 42%;
+}
+
+.hcard--golden .hcard__body {
+  background: rgb(230, 175, 55);
+}
+
+/* ── Typography ── */
+.hcard__title {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.25;
+  color: #fff;
+}
+
+.hcard__desc {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  margin: 0;
+}
+
+.hcard--maroon .hcard__desc {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 300;
+}
+
+.hcard--golden .hcard__desc {
+  color: rgba(40, 20, 5, 0.85);
+  font-weight: 400;
+}
+
+.hcard__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: gap 0.2s ease;
+  width: fit-content;
+  margin-top: 8px;
+}
+
+.hcard--maroon .hcard__link {
+  color: #fff;
+}
+
+.hcard--golden .hcard__link {
+  color: rgb(79, 39, 68);
+}
+
+.hcard__link:hover {
+  gap: 12px;
+}
+
+/* ── Photo blocks — independently positioned ── */
+.hcard__photo {
+  position: absolute;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  /* photos are behind cards */
+}
+
+.hcard__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.hcard__photo:hover img {
+  transform: scale(1.04);
+}
+
+/* 2. Photo top-right — overlaps golden card's top edge */
+.hcard__photo--tr {
+  top: 40px;
+  right: 2%;
+  width: 48%;
+  height: 420px;
+}
+
+/* 3. Photo bottom-left — overlaps maroon card's bottom edge */
+.hcard__photo--bl {
+  top: 300px;
+  left: 2%;
+  width: 45%;
+  height: 380px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .history-grid {
+    height: 720px;
+  }
+
+  .hcard--maroon,
+  .hcard--golden {
+    width: 44%;
+  }
+
+  .hcard__photo--tr {
+    width: 48%;
+    height: 380px;
+  }
+
+  .hcard__photo--bl {
+    width: 48%;
+    height: 340px;
+  }
+
+  .hcard--golden {
+    top: 380px;
+  }
+}
+
+@media (max-width: 768px) {
+  .history-grid {
+    position: static;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .history-squiggle {
+    display: none;
+  }
+
+  .hcard,
+  .hcard__photo {
+    position: static;
+    width: 90%;
+    margin: 0 auto;
+    height: auto;
+  }
+
+  .hcard__photo {
+    height: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  .history-section {
+    padding: 50px 5% 60px;
+  }
+
+  .hcard__title-bar {
+    margin-left: -16px;
+    padding: 16px 20px;
+  }
+
+  .hcard__body {
+    padding: 24px 20px;
+    gap: 14px;
+  }
+
+  .hcard__photo {
+    height: 200px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BLOG SECTION
+═══════════════════════════════════════════════════════════ */
+.blog-section {
+  padding: 80px 5% 100px;
+  background: rgb(243, 233, 215);
+}
+
+.blog-section__header {
+  margin-bottom: 48px;
+}
+
+.blog-section__title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.blog-section__title {
+  font-family: 'Urbanist', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 800;
+  color: rgb(79, 39, 68);
+  margin: 0 0 4px;
+}
+
+.blog-section__subtitle {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1rem;
+  color: rgba(79, 39, 68, 0.6);
+  font-weight: 300;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 600px;
+}
+
+.blog-section__actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ── Blog Buttons ── */
+.blog-btn {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.blog-btn--primary {
+  background: rgb(79, 39, 68);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(79, 39, 68, 0.3);
+}
+
+.blog-btn--primary:hover {
+  background: rgb(100, 52, 88);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(79, 39, 68, 0.45);
+}
+
+.blog-btn--outline {
+  background: transparent;
+  color: rgb(79, 39, 68);
+  border: 2px solid rgb(79, 39, 68);
+}
+
+.blog-btn--outline:hover {
+  background: rgb(79, 39, 68);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ── Blog Cards Grid (top 3) ── */
+.blog-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* ── Individual Blog Card ── */
+.blog-card {
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 24px rgba(79, 39, 68, 0.07);
+  border: 1px solid rgba(79, 39, 68, 0.07);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.blog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 56px rgba(79, 39, 68, 0.14);
+}
+
+.blog-card__img-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
+}
+
+.blog-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.blog-card:hover .blog-card__img {
+  transform: scale(1.06);
+}
+
+.blog-card__rank {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: rgb(40, 20, 36);
+  padding: 4px 12px;
+  border-radius: 50px;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+
+.blog-card__no-img {
+  padding: 16px 20px 0;
+}
+
+.blog-card__rank--solo {
+  position: static;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
+.blog-card__body {
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 10px;
+}
+
+.blog-card__title {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: rgb(40, 20, 36);
+  margin: 0;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.blog-card__excerpt {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.9rem;
+  color: rgba(60, 30, 55, 0.65);
+  line-height: 1.65;
+  margin: 0;
+  flex: 1;
+}
+
+.blog-card__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.blog-card__author,
+.blog-card__contact {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(79, 39, 68, 0.55);
+}
+
+.blog-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(79, 39, 68, 0.08);
+  margin-top: auto;
+}
+
+.blog-card__read-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: rgb(79, 39, 68);
+  cursor: pointer;
+  position: relative;
+  transition: gap 0.2s ease;
+}
+
+.blog-card__read-btn::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: rgb(79, 39, 68);
+  transition: width 0.25s ease;
+}
+
+.blog-card__read-btn:hover {
+  gap: 8px;
+}
+
+.blog-card__read-btn:hover::after {
+  width: 100%;
+}
+
+.blog-card__date {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.78rem;
+  color: rgba(79, 39, 68, 0.4);
+}
+
+/* ── Horizontal Card (all-blogs list) ── */
+.blog-card--horizontal {
+  flex-direction: row;
+  border-radius: 12px;
+}
+
+.blog-card--horizontal .blog-card__img-wrap {
+  width: 180px;
+  height: auto;
+  flex-shrink: 0;
+  border-radius: 12px 0 0 12px;
+}
+
+.blog-card--horizontal .blog-card__body {
+  padding: 20px 22px;
+}
+
+/* ── Empty State ── */
+.blog-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 80px 24px;
+  text-align: center;
+}
+
+.blog-empty__icon {
+  font-size: 3.5rem;
+}
+
+.blog-empty p {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.05rem;
+  color: rgba(79, 39, 68, 0.55);
+  font-weight: 300;
+  margin: 0;
+}
+
+/* ── Skeleton Loaders ── */
+.blog-skeleton-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.blog-skeleton {
+  height: 380px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, rgba(79,39,68,0.06) 25%, rgba(79,39,68,0.12) 50%, rgba(79,39,68,0.06) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MODALS (All Blogs + Publish Blog)
+═══════════════════════════════════════════════════════════ */
+.blog-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 8, 18, 0.6);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: modalOverlayIn 0.25s ease;
+}
+
+@keyframes modalOverlayIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.blog-modal {
+  background: rgb(250, 245, 236);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 860px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(20, 8, 18, 0.3);
+  animation: modalSlideIn 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.blog-modal--publish {
+  max-width: 680px;
+}
+
+.blog-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 32px 20px;
+  border-bottom: 1px solid rgba(79, 39, 68, 0.1);
+  flex-shrink: 0;
+}
+
+.blog-modal__title {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: rgb(79, 39, 68);
+  margin: 0;
+}
+
+.blog-modal__close {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(79, 39, 68, 0.08);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(79, 39, 68);
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.blog-modal__close:hover {
+  background: rgb(79, 39, 68);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.blog-modal__body {
+  overflow-y: auto;
+  padding: 28px 32px 32px;
+  flex: 1;
+}
+
+/* ── All Blogs list inside modal ── */
+.blog-modal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Publish Form ── */
+.publish-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Image Upload Area */
+.publish-form__image-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.publish-form__image-label {
+  display: block;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px dashed rgba(79, 39, 68, 0.3);
+  transition: border-color 0.25s ease;
+}
+
+.publish-form__image-label:hover {
+  border-color: rgb(79, 39, 68);
+}
+
+.publish-form__image-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px 24px;
+  background: rgba(79, 39, 68, 0.03);
+}
+
+.publish-form__image-icon {
+  font-size: 2.5rem;
+}
+
+.publish-form__image-placeholder span {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(79, 39, 68, 0.7);
+}
+
+.publish-form__image-hint {
+  font-size: 0.8rem !important;
+  font-weight: 400 !important;
+  color: rgba(79, 39, 68, 0.45) !important;
+}
+
+.publish-form__image-preview {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+.publish-form__image-remove {
+  background: none;
+  border: none;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgb(210, 90, 60);
+  cursor: pointer;
+  align-self: flex-start;
+  padding: 0;
+  transition: opacity 0.2s;
+}
+
+.publish-form__image-remove:hover {
+  opacity: 0.7;
+}
+
+/* Form groups */
+.publish-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.publish-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.publish-form__label {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(79, 39, 68, 0.75);
+  letter-spacing: 0.5px;
+}
+
+.publish-form__input,
+.publish-form__textarea {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.95rem;
+  color: rgb(40, 20, 36);
+  background: #fff;
+  border: 1.5px solid rgba(79, 39, 68, 0.18);
+  border-radius: 10px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  resize: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.publish-form__input:focus,
+.publish-form__textarea:focus {
+  border-color: rgb(79, 39, 68);
+  box-shadow: 0 0 0 3px rgba(79, 39, 68, 0.1);
+}
+
+.publish-form__input::placeholder,
+.publish-form__textarea::placeholder {
+  color: rgba(79, 39, 68, 0.35);
+}
+
+.publish-form__error {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.88rem;
+  color: rgb(210, 90, 60);
+  font-weight: 600;
+  margin: 0;
+  padding: 10px 16px;
+  background: rgba(210, 90, 60, 0.08);
+  border-radius: 8px;
+  border-left: 3px solid rgb(210, 90, 60);
+}
+
+.publish-form__submit {
+  width: 100%;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 1rem;
+  margin-top: 4px;
+}
+
+.publish-form__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.publish-spinner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Success state */
+.publish-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 24px;
+  text-align: center;
+  animation: fadeSlideUp 0.4s ease;
+}
+
+.publish-success__icon {
+  font-size: 4rem;
+  animation: bounceIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes bounceIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.publish-success h3 {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: rgb(79, 39, 68);
+  margin: 0;
+}
+
+.publish-success p {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1rem;
+  color: rgba(79, 39, 68, 0.6);
+  font-weight: 300;
+  margin: 0;
+}
+
+/* ── Blog Section Responsive ── */
+@media (max-width: 960px) {
+  .blog-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .blog-skeleton-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .blog-skeleton:last-child {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .blog-section {
+    padding: 60px 5% 80px;
+  }
+  .blog-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .blog-skeleton-row {
+    grid-template-columns: 1fr;
+  }
+  .blog-section__title-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .blog-section__actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .blog-btn {
+    text-align: center;
+  }
+  .blog-card--horizontal {
+    flex-direction: column;
+  }
+  .blog-card--horizontal .blog-card__img-wrap {
+    width: 100%;
+    height: 200px;
+    border-radius: 12px 12px 0 0;
+  }
+  .publish-form__row {
+    grid-template-columns: 1fr;
+  }
+  .blog-modal__header,
+  .blog-modal__body {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }

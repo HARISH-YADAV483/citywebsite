@@ -1,0 +1,323 @@
+/* ── Full Blog Page ──────────────────────────────────────── */
+.fb-page {
+  background: rgb(243, 233, 215);
+  min-height: 100vh;
+  padding-bottom: 80px;
+  animation: fbFadeIn 0.5s ease;
+}
+
+@keyframes fbFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Back button (floating top-left) ── */
+.fb-page__back {
+  position: fixed;
+  top: 88px;
+  left: 28px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  background: rgba(243, 233, 215, 0.85);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(79, 39, 68, 0.2);
+  color: rgb(79, 39, 68);
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(79, 39, 68, 0.1);
+}
+
+.fb-page__back:hover {
+  background: rgb(79, 39, 68);
+  color: #fff;
+  border-color: rgb(79, 39, 68);
+  transform: translateX(-3px);
+}
+
+/* ── Hero Image ── */
+.fb-hero {
+  position: relative;
+  width: 100%;
+  height: 55vh;
+  min-height: 340px;
+  overflow: hidden;
+}
+
+.fb-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.fb-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 40%,
+    rgba(243, 233, 215, 0.6) 80%,
+    rgb(243, 233, 215) 100%
+  );
+}
+
+/* ── Article ── */
+.fb-article {
+  max-width: 780px;
+  margin: -64px auto 0;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.fb-article--no-hero {
+  margin-top: 80px;
+}
+
+/* Meta badge */
+.fb-article__meta {
+  margin-bottom: 18px;
+}
+
+.fb-article__badge {
+  display: inline-block;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(79, 39, 68, 0.55);
+  padding: 6px 14px;
+  border: 1px solid rgba(79, 39, 68, 0.2);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+/* Title */
+.fb-article__title {
+  font-family: 'Urbanist', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: rgb(40, 20, 36);
+  line-height: 1.2;
+  margin: 0 0 28px;
+  letter-spacing: -0.5px;
+}
+
+/* Author row */
+.fb-article__author-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.fb-article__avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgb(79, 39, 68);
+  color: #fff;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.fb-article__author-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.fb-article__author-name {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: rgb(79, 39, 68);
+}
+
+.fb-article__author-sub {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.83rem;
+  color: rgba(79, 39, 68, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fb-dot {
+  opacity: 0.4;
+}
+
+/* Decorative divider */
+.fb-article__divider {
+  margin-bottom: 36px;
+}
+
+/* Content */
+.fb-article__content {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.12rem;
+  line-height: 1.9;
+  color: rgba(40, 20, 36, 0.8);
+  font-weight: 350;
+}
+
+.fb-article__content p {
+  margin: 0 0 1.5em;
+}
+
+.fb-article__content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Footer */
+.fb-article__footer {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(79, 39, 68, 0.12);
+  display: flex;
+  align-items: center;
+}
+
+/* Back button (in-page footer version) */
+.fb-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: 50px;
+  background: rgb(79, 39, 68);
+  color: #fff;
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(79, 39, 68, 0.3);
+}
+
+.fb-back-btn:hover {
+  background: rgb(100, 52, 88);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(79, 39, 68, 0.45);
+}
+
+/* ── Loading state ── */
+.fb-loading {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  background: rgb(243, 233, 215);
+}
+
+.fb-loading__bar {
+  width: 240px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(79, 39, 68, 0.1);
+  overflow: hidden;
+}
+
+.fb-loading__bar::after {
+  content: '';
+  display: block;
+  width: 40%;
+  height: 100%;
+  background: rgb(79, 39, 68);
+  border-radius: 2px;
+  animation: loadBar 1.2s ease-in-out infinite;
+}
+
+@keyframes loadBar {
+  0%   { margin-left: -40%; }
+  100% { margin-left: 100%; }
+}
+
+.fb-loading p {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 0.95rem;
+  color: rgba(79, 39, 68, 0.5);
+  font-weight: 500;
+  margin: 0;
+}
+
+/* ── Error state ── */
+.fb-error {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: rgb(243, 233, 215);
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.fb-error__icon {
+  font-size: 3.5rem;
+}
+
+.fb-error h2 {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: rgb(79, 39, 68);
+  margin: 0;
+}
+
+.fb-error p {
+  font-family: 'Urbanist', sans-serif;
+  font-size: 1rem;
+  color: rgba(79, 39, 68, 0.55);
+  font-weight: 300;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .fb-article {
+    max-width: 100%;
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .fb-page__back {
+    top: 76px;
+    left: 16px;
+    padding: 8px 16px;
+    font-size: 0.82rem;
+  }
+
+  .fb-hero {
+    height: 42vh;
+    min-height: 240px;
+  }
+
+  .fb-article {
+    padding: 0 18px;
+    margin-top: -40px;
+  }
+
+  .fb-article__content {
+    font-size: 1rem;
+  }
+}

@@ -13,11 +13,24 @@ function Footer() {
               <span className="footer__logo-dot"></span>
               <span className="footer__title">Malli Tibba</span>
             </div>
-            <p className="footer__desc">
-              Nestled in the historic city of Narnaul, Mohalla Malli Tibba is a community 
-              that echoes with centuries of culture, warmth, and tradition. A timeless 
-              heritage preserved for future generations.
-            </p>
+            <ul className="footer__details-list">
+              <li><strong>Locality Name:</strong> Mohalla Mali Tibba</li>
+              <li><strong>Town/City:</strong> Narnaul</li>
+              <li><strong>Tehsil:</strong> Narnaul</li>
+              <li><strong>District:</strong> Mahendragarh</li>
+              <li><strong>State:</strong> Haryana</li>
+              <li><strong>Division:</strong> Gurgaon Division</li>
+              <li><strong>Country:</strong> India</li>
+              <li><strong>PIN Code:</strong> 123001</li>
+              <li><strong>Post Office:</strong> Narnaul Head Office</li>
+              <li><strong>Languages:</strong> Hindi, Haryanvi, Punjabi</li>
+              <li><strong>Time Zone:</strong> IST (UTC +05:30)</li>
+              <li><strong>Elevation:</strong> Approx 308 m above sea level</li>
+              <li><strong>Assembly Constituency:</strong> Narnaul (70)</li>
+              <li><strong>Current MLA:</strong> Om Parkash Yadav (BJP)</li>
+              <li><strong>Lok Sabha Constituency:</strong> Bhiwani–Mahendragarh</li>
+              <li><strong>Current MP:</strong> Dharambir Singh (BJP)</li>
+            </ul>
           </div>
 
           {/* Location & Explore */}
