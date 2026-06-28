@@ -2,26 +2,38 @@ import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import Footer from './components/Footer'
-import MalliTibbaDetail from './components/MalliTibbaDetail'
+import MaliTibbaDetail from './components/MaliTibbaDetail'
 import FullBlog from './components/FullBlog'
+import Gallery from './components/Gallery'
+import TemplesPage from './components/TemplesPage'
+import CulturePage from './components/CulturePage'
+import HistoryPage from './components/HistoryPage'
+import LanguagePopup from './components/LanguagePopup'
 import './App.css'
 
 function App() {
   return (
-    <Routes>
-      <Route
-        path="/"
-        element={
-          <>
-            <Navbar />
-            <Home />
-            <Footer />
-          </>
-        }
-      />
-      <Route path="/story" element={<MalliTibbaDetail />} />
-      <Route path="/blog/:id" element={<FullBlog />} />
-    </Routes>
+    <>
+      <LanguagePopup />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar />
+              <Home />
+              <Footer />
+            </>
+          }
+        />
+        <Route path="/story" element={<MaliTibbaDetail />} />
+        <Route path="/temples" element={<TemplesPage />} />
+        <Route path="/culture" element={<CulturePage />} />
+        <Route path="/history" element={<HistoryPage />} />
+        <Route path="/blog/:id" element={<FullBlog />} />
+        <Route path="/gallery" element={<Gallery />} />
+      </Routes>
+    </>
   )
 }
 

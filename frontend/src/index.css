@@ -67,3 +67,14 @@ img, video {
   min-height: 100vh;
   background: rgb(243, 233, 215);
 }
+
+/* ─── Google Translate Overrides ─────────────────────────── */
+.VIpgJd-ZVi9od-ORHb-OEVmcd {
+  display: none !important;
+}
+.skiptranslate > iframe.skiptranslate {
+  display: none !important;
+}
+body {
+  top: 0 !important;
+}

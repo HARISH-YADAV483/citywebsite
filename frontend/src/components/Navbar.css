@@ -288,4 +288,77 @@
   .navbar__links li a:hover {
     color: rgb(79, 39, 68);
   }
+
+  .navbar__lang-toggle {
+    background: rgba(79, 39, 68, 0.1);
+    border-color: rgba(79, 39, 68, 0.2);
+    color: rgb(79, 39, 68);
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+}
+
+/* ─── Language Toggle ────────────────────────────────────── */
+.navbar__lang-item {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__lang-toggle {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 6px 12px;
+  color: #fff;
+  font-family: 'Urbanist', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+
+.navbar--scrolled .navbar__lang-toggle {
+  background: rgba(79, 39, 68, 0.1);
+  border-color: rgba(79, 39, 68, 0.2);
+  color: rgb(79, 39, 68);
+}
+
+.navbar--story .navbar__lang-toggle {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.navbar--story.navbar--scrolled .navbar__lang-toggle {
+  background: rgba(79, 39, 68, 0.1);
+  border-color: rgba(79, 39, 68, 0.2);
+  color: rgb(79, 39, 68);
+}
+
+.navbar__lang-toggle:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.navbar--scrolled .navbar__lang-toggle:hover,
+.navbar--story.navbar--scrolled .navbar__lang-toggle:hover {
+  background: rgba(79, 39, 68, 0.15);
+}
+
+.navbar__lang-toggle span {
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.navbar__lang-toggle span.active {
+  opacity: 1;
+}
+
+.navbar__lang-toggle .divider {
+  opacity: 0.3;
+  font-weight: 400;
 }

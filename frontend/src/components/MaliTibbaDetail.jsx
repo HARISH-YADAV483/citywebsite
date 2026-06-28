@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import narnaul from '../assets/narnaul.png'
-import './MalliTibbaDetail.css'
+import './MaliTibbaDetail.css'
 import Navbar from './Navbar'
 import balaji from '../assets/balaji.jpeg'
 import imageWebp from '../assets/image.webp'
@@ -20,7 +20,7 @@ const facts = [
 const highlights = [
   {
     title: 'Cultural Heart',
-    desc: 'Malli Tibba stands as a cultural nucleus of Narnaul — where generations of stories, traditions, and community bonds have been woven together across centuries.',
+    desc: 'Mali Tibba stands as a cultural nucleus of Narnaul — where generations of stories, traditions, and community bonds have been woven together across centuries.',
   },
   {
     title: 'Peace & Serenity',
@@ -28,13 +28,13 @@ const highlights = [
   },
   {
     title: 'Living History',
-    desc: 'Every lane, every structure whispers tales of the past. Walking through Malli Tibba is a journey through living history, architecture, and art.',
+    desc: 'Every lane, every structure whispers tales of the past. Walking through Mali Tibba is a journey through living history, architecture, and art.',
   },
 ]
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3003'
 
-function MalliTibbaDetail() {
+function MaliTibbaDetail() {
   const navigate = useNavigate()
 
   // Blog state
@@ -169,7 +169,7 @@ function MalliTibbaDetail() {
           </div>
           <div className="detail-hero__content">
             <span className="detail-hero__badge">📍 Narnaul, Haryana</span>
-            <h1 className="detail-hero__title">Mohalla<br />Malli Tibba</h1>
+            <h1 className="detail-hero__title">Mohalla<br />Mali Tibba</h1>
             <p className="detail-hero__subtitle">A Place for Peace &amp; Entertainment</p>
           </div>
         </div>
@@ -201,12 +201,12 @@ function MalliTibbaDetail() {
               </div>
               <div className="fest__desc">
                 <p>
-                  Every year, Mohalla Malli Tibba comes alive with vibrant celebrations honouring
+                  Every year, Mohalla Mali Tibba comes alive with vibrant celebrations honouring
                   Bajrang Bali. The lanes are adorned with flowers, devotional music fills the air,
                   and the entire community gathers in joyous reverence — a tradition passed down
                   through generations that truly defines the spirit of this mohalla.
                 </p>
-                <button className="fest__readmore">
+                <button className="fest__readmore" onClick={() => navigate('/temples')}>
                   Read more &rarr;
                 </button>
               </div>
@@ -220,16 +220,16 @@ function MalliTibbaDetail() {
                   <img src={shanidev} alt="Festival" className="fest__item-img" />
                   <div className="fest__item-body">
                     <h3>Shanidev Mandir</h3>
-                    <p>Experience the grandeur of Hanuman Jayanti celebrations in Malli Tibba — a colourful procession of devotion, music, and community spirit.</p>
-                    <button className="fest__item-link">Read more &rarr;</button>
+                    <p>Experience the grandeur of Hanuman Jayanti celebrations in Mali Tibba — a colourful procession of devotion, music, and community spirit.</p>
+                    <button className="fest__item-link" onClick={() => navigate('/temples')}>Read more &rarr;</button>
                   </div>
                 </div>
                 <div className="fest__item">
                   <img src={balaji} alt="Festival" className="fest__item-img" />
                   <div className="fest__item-body">
                     <h3>Sitaram Maharaj</h3>
-                    <p>Stroll through the historic lanes of Malli Tibba and discover centuries-old architecture, hidden temples, and stories etched into every wall.</p>
-                    <button className="fest__item-link">Read more &rarr;</button>
+                    <p>Stroll through the historic lanes of Mali Tibba and discover centuries-old architecture, hidden temples, and stories etched into every wall.</p>
+                    <button className="fest__item-link" onClick={() => navigate('/temples')}>Read more &rarr;</button>
                   </div>
                 </div>
                 <div className="fest__item">
@@ -237,7 +237,7 @@ function MalliTibbaDetail() {
                   <div className="fest__item-body">
                     <h3>Thakur ji Mandir</h3>
                     <p>Witness the soulful Haryanvi folk music and dance performances that breathe life into the traditions of Narnaul at every festive occasion.</p>
-                    <button className="fest__item-link">Read more &rarr;</button>
+                    <button className="fest__item-link" onClick={() => navigate('/temples')}>Read more &rarr;</button>
                   </div>
                 </div>
               </div>
@@ -250,10 +250,10 @@ function MalliTibbaDetail() {
           <div className="trip-ideas__intro">
             <h2 className="trip-ideas__intro-title">Culture &amp; Festivals</h2>
             <p className="trip-ideas__intro-desc">
-              Discover the vibrant traditions of Malli Tibba — from colourful religious processions
+              Discover the vibrant traditions of Mali Tibba — from colourful religious processions
               and folk music to age-old rituals that bind this community together across generations.
             </p>
-            <a href="#" className="trip-ideas__explore-link">Explore more &rarr;</a>
+            <button className="trip-ideas__explore-link" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }} onClick={() => navigate('/culture')}>Explore more &rarr;</button>
           </div>
 
           {/* Right: three image cards */}
@@ -265,10 +265,10 @@ function MalliTibbaDetail() {
               </div>
               <h3 className="trip-card__title">Hanuman Jayanti Celebration</h3>
               <ul className="trip-card__bullets">
-                <li>Grand procession through Malli Tibba lanes</li>
+                <li>Grand procession through Mali Tibba lanes</li>
                 <li>Devotional music &amp; community feast</li>
               </ul>
-              <button className="trip-card__readmore">Read more &rarr;</button>
+              <button className="trip-card__readmore" onClick={() => navigate('/culture')}>Read more &rarr;</button>
             </div>
 
             {/* Card 2 */}
@@ -281,7 +281,7 @@ function MalliTibbaDetail() {
                 Soulful performances of Ragini and Saang fill the air every festive season,
                 keeping centuries-old traditions alive in the heart of Narnaul.
               </p>
-              <button className="trip-card__readmore">Read more &rarr;</button>
+              <button className="trip-card__readmore" onClick={() => navigate('/culture')}>Read more &rarr;</button>
             </div>
 
             {/* Card 3 */}
@@ -291,10 +291,10 @@ function MalliTibbaDetail() {
               </div>
               <h3 className="trip-card__title">Heritage Lane Walk</h3>
               <p className="trip-card__desc">
-                Stroll the historic lanes of Malli Tibba and discover centuries-old architecture,
+                Stroll the historic lanes of Mali Tibba and discover centuries-old architecture,
                 hidden temples, and stories etched into every wall.
               </p>
-              <button className="trip-card__readmore">Read more &rarr;</button>
+              <button className="trip-card__readmore" onClick={() => navigate('/culture')}>Read more &rarr;</button>
             </div>
           </div>
         </section>
@@ -321,17 +321,17 @@ function MalliTibbaDetail() {
               </div>
               <div className="hcard__body">
                 <p className="hcard__desc">
-                  Malli Tibba carries centuries of history within its narrow lanes and old havelis.
+                  Mali Tibba carries centuries of history within its narrow lanes and old havelis.
                   Once a thriving centre of trade and craftsmanship, the mohalla saw the rise of
                   local artisans, scholars, and community leaders who shaped the identity of Narnaul.
                 </p>
-                <button className="hcard__link">Explore History &rarr;</button>
+                <button className="hcard__link" onClick={() => navigate('/history')}>Explore History &rarr;</button>
               </div>
             </div>
 
             {/* 2. Photo — top-right (image.webp), z-index 3 — overlaps golden card top */}
             <div className="hcard__photo hcard__photo--tr">
-              <img src={imageWebp} alt="Heritage view of Malli Tibba" />
+              <img src={imageWebp} alt="Heritage view of Mali Tibba" />
             </div>
 
             {/* 3. Photo — bottom-left (lalpahadi), z-index 3 — overlaps maroon card bottom */}
@@ -350,7 +350,7 @@ function MalliTibbaDetail() {
                   in folklore and spiritual significance. Locals recount tales of saints, warriors,
                   and monsoon festivals held under its shadow across generations.
                 </p>
-                <button className="hcard__link">Find out more &rarr;</button>
+                <button className="hcard__link" onClick={() => navigate('/history')}>Find out more &rarr;</button>
               </div>
             </div>
 
@@ -377,7 +377,7 @@ function MalliTibbaDetail() {
               </div>
             </div>
             <p className="blog-section__subtitle">
-              Stories, memories and voices from the heart of Malli Tibba — written by our community.
+              Stories, memories and voices from the heart of Mali Tibba — written by our community.
             </p>
           </div>
 
@@ -453,7 +453,7 @@ function MalliTibbaDetail() {
                 <div className="publish-success">
                   <div className="publish-success__icon">🎉</div>
                   <h3>Blog Published!</h3>
-                  <p>Your story is now live on Malli Tibba.</p>
+                  <p>Your story is now live on Mali Tibba.</p>
                 </div>
               ) : (
                 <form className="publish-form" onSubmit={handlePublish} encType="multipart/form-data">
@@ -491,7 +491,7 @@ function MalliTibbaDetail() {
 
                   <div className="publish-form__group">
                     <label className="publish-form__label" htmlFor="blog-content">Your Story *</label>
-                    <textarea id="blog-content" className="publish-form__textarea" name="content" value={form.content} onChange={handleFormChange} placeholder="Share your memories, experiences or stories about Malli Tibba…" rows={6} required />
+                    <textarea id="blog-content" className="publish-form__textarea" name="content" value={form.content} onChange={handleFormChange} placeholder="Share your memories, experiences or stories about Mali Tibba…" rows={6} required />
                   </div>
 
                   <div className="publish-form__row">
@@ -570,4 +570,4 @@ function BlogCard({ blog, rank, layout = 'vertical' }) {
   )
 }
 
-export default MalliTibbaDetail
+export default MaliTibbaDetail

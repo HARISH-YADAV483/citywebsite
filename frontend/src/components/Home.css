@@ -264,7 +264,7 @@ background: linear-gradient(
   100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
 }
 
-/* ── Malli Tibba pin label ───────────────────────────────── */
+/* ── Mali Tibba pin label ───────────────────────────────── */
 .map-pin__label {
   position: absolute;
   left: calc(100% + 10px);

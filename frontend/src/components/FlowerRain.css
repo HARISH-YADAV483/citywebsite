@@ -1,0 +1,37 @@
+.flower-rain-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999; /* Make sure this is in front of most elements but doesn't block clicks because of pointer-events: none */
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  top: -10vh;
+  border-radius: 15px 0 15px 0;
+  animation: fallAndSway linear infinite;
+  will-change: transform;
+}
+
+.petal-light {
+  background: linear-gradient(135deg, #ffd1dc 0%, #ffb6c1 100%);
+  box-shadow: 0 0 4px rgba(255, 182, 193, 0.4);
+}
+
+.petal-dark {
+  background: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 100%);
+  box-shadow: 0 0 4px rgba(255, 105, 180, 0.4);
+}
+
+@keyframes fallAndSway {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg) rotateX(0deg) rotateY(0deg);
+  }
+  100% {
+    transform: translate3d(var(--end-x), 110vh, 0) rotate(360deg) rotateX(360deg) rotateY(360deg);
+  }
+}

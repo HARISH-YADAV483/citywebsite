@@ -46,7 +46,7 @@ function FullBlog() {
           <h2>Blog not found</h2>
           <p>{error || 'This blog does not exist or was removed.'}</p>
           <button className="fb-back-btn" onClick={() => navigate('/story')}>
-            ← Back to Malli Tibba
+            ← Back to Mali Tibba
           </button>
         </div>
         <Footer />
@@ -86,7 +86,7 @@ function FullBlog() {
         <article className={`fb-article ${!blog.image ? 'fb-article--no-hero' : ''}`}>
           {/* Meta */}
           <div className="fb-article__meta">
-            <span className="fb-article__badge">📍 Malli Tibba Community Blog</span>
+            <span className="fb-article__badge">📍 Mali Tibba Community Blog</span>
           </div>
 
           {/* Title */}
@@ -127,7 +127,7 @@ function FullBlog() {
           {/* Footer */}
           <div className="fb-article__footer">
             <button className="fb-back-btn" onClick={() => navigate('/story')}>
-              ← Back to Malli Tibba
+              ← Back to Mali Tibba
             </button>
           </div>
         </article>

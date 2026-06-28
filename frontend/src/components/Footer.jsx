@@ -11,7 +11,7 @@ function Footer() {
           <div className="footer__brand">
             <div className="footer__logo">
               <span className="footer__logo-dot"></span>
-              <span className="footer__title">Malli Tibba</span>
+              <span className="footer__title">Mali Tibba</span>
             </div>
             <ul className="footer__details-list">
               <li><strong>Locality Name:</strong> Mohalla Mali Tibba</li>
@@ -43,7 +43,7 @@ function Footer() {
                   <circle cx="12" cy="10" r="3"></circle>
                 </svg>
                 <a href="https://www.google.com/maps/place/Mohalla+Mali+Tibba,+Narnaul,+Haryana+123001/@28.0364079,76.1066231,16z/data=!3m1!4b1!4m6!3m5!1s0x3912b5c10ab6bd4b:0x72080dfb667d5f3e!8m2!3d28.0349822!4d76.1116997!16s%2Fg%2F1ptwnyfs6?entry=ttu&g_ep=EgoyMDI2MDYwOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer">
-                 Malli Tibba, Narnaul, Haryana, India
+                 Mali Tibba, Narnaul, Haryana, India
                 </a>
               </li>
               <li>
@@ -66,7 +66,7 @@ function Footer() {
                   <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                   <polyline points="22,6 12,13 2,6"></polyline>
                 </svg>
-                <a href="#">info@mallitibba.com</a>
+                <a href="#">info@malitibba.com</a>
               </li>
               <li>
                 <svg className="footer__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -81,7 +81,7 @@ function Footer() {
         {/* Copyright & Developer */}
         <div className="footer__bottom">
           <div className="footer__copyright">
-            &copy; {new Date().getFullYear()} Mohalla Malli Tibba. All Rights Reserved.
+            &copy; {new Date().getFullYear()} Mohalla Mali Tibba. All Rights Reserved.
           </div>
           <div className="footer__developer">
             Designed & Developed by 
