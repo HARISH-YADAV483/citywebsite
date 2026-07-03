@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
+import { useTranslation } from 'react-i18next'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import './PageTemplate.css'
@@ -35,6 +37,9 @@ export default function HistoryPage() {
   const [loading, setLoading] = useState(true)
   const [showContribute, setShowContribute] = useState(false)
   const [lightbox, setLightbox] = useState(null)
+  const { t } = useTranslation()
+  
+  const { user, token } = useContext(AuthContext)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -104,9 +109,9 @@ export default function HistoryPage() {
             <div className="pt-hero__gradient" style={{ background: 'linear-gradient(to top, rgb(79,39,68) 0%, rgba(79,39,68,0.6) 50%, rgba(79,39,68,0.1) 100%)' }} />
           </div>
           <div className="pt-hero__content">
-            <span className="pt-hero__badge">🏰 Mali Tibba</span>
-            <h1 className="pt-hero__title">History &amp;<br />Heritage</h1>
-            <p className="pt-hero__subtitle">Every lane, every structure whispers tales of the past. A journey through living history, architecture, and art.</p>
+            <span className="pt-hero__badge">{t('history.badge')}</span>
+            <h1 className="pt-hero__title">{t('history.title1')}<br />{t('history.title2')}</h1>
+            <p className="pt-hero__subtitle">{t('history.subtitle')}</p>
           </div>
         </div>
 
@@ -114,15 +119,17 @@ export default function HistoryPage() {
         <section className="pt-list-section">
           <div className="pt-list-header">
             <div className="pt-list-header__left">
-              <h2 className="pt-list-title">Heritage Sites &amp; Community Photos</h2>
-              <p className="pt-list-subtitle">Explore historical landmarks and heritage photos shared by the community</p>
+              <h2 className="pt-list-title">{t('history.listTitle')}</h2>
+              <p className="pt-list-subtitle">{t('history.listSubtitle')}</p>
             </div>
-            <button className="pt-contribute-btn" id="history-contribute-btn" onClick={() => setShowContribute(true)}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
-              </svg>
-              Contribute a Photo
-            </button>
+            {user?.isResident && (
+              <button className="pt-contribute-btn" id="history-contribute-btn" onClick={() => setShowContribute(true)}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                {t('history.contributeBtn')}
+              </button>
+            )}
           </div>
 
           {loading && allItems.length === STATIC_HISTORY.length ? (
@@ -140,8 +147,10 @@ export default function HistoryPage() {
           ) : allItems.length === 0 ? (
             <div className="pt-list-empty">
               <span className="pt-list-empty__icon">🏰</span>
-              <p>No photos yet — be the first to share a historical photo!</p>
-              <button className="pt-contribute-btn" onClick={() => setShowContribute(true)}>+ Add First Photo</button>
+              <p>{t('history.emptyText')}</p>
+              {user?.isResident && (
+                <button className="pt-contribute-btn" onClick={() => setShowContribute(true)}>{t('history.addFirstBtn')}</button>
+              )}
             </div>
           ) : (
             <div className="pt-list-grid">
@@ -156,8 +165,8 @@ export default function HistoryPage() {
                     </div>
                   </div>
                   <div className="pt-list-item__body">
-                    {item.isStatic && <span className="pt-list-item__badge">Historical Landmark</span>}
-                    {!item.isStatic && <span className="pt-list-item__badge" style={{background: 'rgba(210,90,60,0.1)', color: 'rgb(210,90,60)'}}>Community Photo</span>}
+                    {item.isStatic && <span className="pt-list-item__badge">{t('history.historicalBadge')}</span>}
+                    {!item.isStatic && <span className="pt-list-item__badge" style={{background: 'rgba(210,90,60,0.1)', color: 'rgb(210,90,60)'}}>{t('history.communityBadge')}</span>}
                     <h3 className="pt-list-item__title">{item.title}</h3>
                     {item.location && (
                       <a href={item.location} target="_blank" rel="noopener noreferrer" className="pt-list-item__location">
@@ -165,13 +174,13 @@ export default function HistoryPage() {
                           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                           <circle cx="12" cy="10" r="3"></circle>
                         </svg>
-                        View Location
+                        {t('history.viewLocation')}
                       </a>
                     )}
                     {item.text && <p className="pt-list-item__text">{item.text}</p>}
                     {!item.isStatic && item.createdAt && (
                       <span className="pt-list-item__meta">
-                        Contributed on {new Date(item.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        {t('history.contributedOn')} {new Date(item.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}
                       </span>
                     )}
                   </div>
@@ -207,6 +216,7 @@ export default function HistoryPage() {
           category={CATEGORY}
           onClose={() => setShowContribute(false)}
           onSuccess={handleContributed}
+          token={token}
         />
       )}
     </>
@@ -214,7 +224,8 @@ export default function HistoryPage() {
 }
 
 /* ── Reusable Contribute Modal ── */
-function ContributeModal({ category, onClose, onSuccess }) {
+function ContributeModal({ category, onClose, onSuccess, token }) {
+  const { t } = useTranslation()
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
   const [location, setLocation] = useState('')
@@ -241,8 +252,8 @@ function ContributeModal({ category, onClose, onSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    if (!title.trim()) { setError('Please enter a title.'); return }
-    if (!imageFile)    { setError('Please select an image.'); return }
+    if (!title.trim()) { setError(t('common.errTitle')); return }
+    if (!imageFile)    { setError(t('common.errImg')); return }
     setUploading(true)
     try {
       const fd = new FormData()
@@ -251,7 +262,11 @@ function ContributeModal({ category, onClose, onSuccess }) {
       fd.append('category', category)
       fd.append('image', imageFile)
       if (location) fd.append('location', location.trim())
-      const res = await fetch(`${API}/api/contributions`, { method: 'POST', body: fd })
+      const res = await fetch(`${API}/api/contributions`, { 
+        method: 'POST', 
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: fd 
+      })
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
         throw new Error(body.error || 'Upload failed')
@@ -261,7 +276,7 @@ function ContributeModal({ category, onClose, onSuccess }) {
       onSuccess(newItem)
       setTimeout(() => { setSuccess(false); onClose() }, 2200)
     } catch (err) {
-      setError(err.message || 'Upload failed. Please try again.')
+      setError(err.message || t('common.errUpload'))
     } finally {
       setUploading(false)
     }
@@ -271,7 +286,7 @@ function ContributeModal({ category, onClose, onSuccess }) {
     <div className="pt-modal-overlay" onClick={onClose}>
       <div className="pt-modal" onClick={e => e.stopPropagation()}>
         <div className="pt-modal__header">
-          <h2 className="pt-modal__title">🏰 Contribute a Photo</h2>
+          <h2 className="pt-modal__title">{t('history.modalTitle')}</h2>
           <button className="pt-modal__close" onClick={onClose} aria-label="Close">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
               <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
@@ -282,8 +297,8 @@ function ContributeModal({ category, onClose, onSuccess }) {
           {success ? (
             <div className="pt-success">
               <span className="pt-success__icon">🎉</span>
-              <h3>Photo Uploaded!</h3>
-              <p>Your photo is now part of the Mali Tibba collection.</p>
+              <h3>{t('common.successMsg')}</h3>
+              <p>{t('common.successSub')}</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -295,35 +310,35 @@ function ContributeModal({ category, onClose, onSuccess }) {
                 ) : (
                   <div className="pt-upload-placeholder">
                     <span className="pt-upload-icon">🖼️</span>
-                    <span className="pt-upload-hint">Click to choose a photo</span>
-                    <span className="pt-upload-sub">JPG, PNG, WEBP supported</span>
+                    <span className="pt-upload-hint">{t('common.clickChoose')}</span>
+                    <span className="pt-upload-sub">{t('common.supportedFormats')}</span>
                   </div>
                 )}
               </label>
               <input id="history-img-input" type="file" accept="image/jpeg,image/png,image/webp" onChange={handleImageChange} style={{ display: 'none' }} />
               {preview && (
-                <button type="button" className="pt-preview-remove" onClick={() => { setImageFile(null); setPreview(null) }}>Remove ✕</button>
+                <button type="button" className="pt-preview-remove" onClick={() => { setImageFile(null); setPreview(null) }}>{t('common.removeImg')}</button>
               )}
 
               <div className="pt-form-group">
-                <label className="pt-form-label" htmlFor="history-title-input">Photo Title *</label>
-                <input id="history-title-input" className="pt-form-input" type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="e.g. Old Haveli Doors…" maxLength={120} required />
+                <label className="pt-form-label" htmlFor="history-title-input">{t('common.photoTitleLabel')}</label>
+                <input id="history-title-input" className="pt-form-input" type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder={t('history.photoTitlePlaceholder')} maxLength={120} required />
               </div>
 
               <div className="pt-form-group">
-                <label className="pt-form-label" htmlFor="history-text-input">Description (optional)</label>
-                <textarea id="history-text-input" className="pt-form-textarea" value={text} onChange={e => setText(e.target.value)} placeholder="Share the story behind this photo…" rows={3} />
+                <label className="pt-form-label" htmlFor="history-text-input">{t('common.descLabel')}</label>
+                <textarea id="history-text-input" className="pt-form-textarea" value={text} onChange={e => setText(e.target.value)} placeholder={t('common.descPlaceholder')} rows={3} />
               </div>
 
               <div className="pt-form-group">
-                <label className="pt-form-label" htmlFor="history-location-input">Location Link (optional)</label>
-                <input id="history-location-input" className="pt-form-input" type="url" value={location} onChange={e => setLocation(e.target.value)} placeholder="Google Maps link or location name" />
+                <label className="pt-form-label" htmlFor="history-location-input">{t('common.locLabel')}</label>
+                <input id="history-location-input" className="pt-form-input" type="url" value={location} onChange={e => setLocation(e.target.value)} placeholder={t('common.locPlaceholder')} />
               </div>
 
               {error && <p className="pt-form-error">{error}</p>}
 
               <button type="submit" className="pt-form-submit" disabled={uploading} id="history-upload-submit">
-                {uploading ? 'Uploading…' : 'Upload Photo →'}
+                {uploading ? t('common.uploading') : t('common.uploadBtn')}
               </button>
             </form>
           )}

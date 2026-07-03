@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
+import { useTranslation } from 'react-i18next'
 import narnaul from '../assets/narnaul.png'
 import './MaliTibbaDetail.css'
 import Navbar from './Navbar'
@@ -43,6 +45,9 @@ function MaliTibbaDetail() {
   const [showAllBlogs, setShowAllBlogs] = useState(false)
   const [showPublish, setShowPublish] = useState(false)
   const [blogsLoading, setBlogsLoading] = useState(true)
+  const { t } = useTranslation()
+  
+  const { user, token } = useContext(AuthContext)
 
   // Publish form state
   const [form, setForm] = useState({ title: '', content: '', author: '', contact: '' })
@@ -125,7 +130,11 @@ function MaliTibbaDetail() {
       fd.append('contact', form.contact)
       if (imageFile) fd.append('image', imageFile)
 
-      const res = await fetch(`${API}/api/blogs`, { method: 'POST', body: fd })
+      const res = await fetch(`${API}/api/blogs`, { 
+        method: 'POST', 
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: fd 
+      })
       if (!res.ok) throw new Error('Server error')
       setPublishSuccess(true)
       setForm({ title: '', content: '', author: '', contact: '' })
@@ -168,9 +177,9 @@ function MaliTibbaDetail() {
             <div className="detail-hero__gradient" />
           </div>
           <div className="detail-hero__content">
-            <span className="detail-hero__badge">📍 Narnaul, Haryana</span>
-            <h1 className="detail-hero__title">Mohalla<br />Mali Tibba</h1>
-            <p className="detail-hero__subtitle">A Place for Peace &amp; Entertainment</p>
+            <span className="detail-hero__badge">{t('story.badge')}</span>
+            <h1 className="detail-hero__title">{t('story.title1')}<br />{t('story.title2')}</h1>
+            <p className="detail-hero__subtitle">{t('story.subtitle')}</p>
           </div>
         </div>
 
@@ -185,7 +194,7 @@ function MaliTibbaDetail() {
           ))}
         </div>
         <section className="fest-section">
-          <h2 className="fest-section__heading">Temples and Worship</h2>
+          <h2 className="fest-section__heading">{t('story.festHeading')}</h2>
           <svg width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginBottom: '8px' }}>
             <path d="M2 10C10.5 2 17.5 18 26 10C34.5 2 41.5 18 50 10C58.5 2 65.5 18 74 10C82.5 2 89.5 18 98 10C106.5 2 113.5 18 118 10" stroke="rgb(154, 204, 192)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -197,47 +206,44 @@ function MaliTibbaDetail() {
                 <img src={balaji} alt="Jai Bajrang Bali Festival" />
               </div>
               <div className="fest__title-card">
-                <h2>Kadiawala HanumanJi Mandir</h2>
+                <h2>{t('story.festTitle')}</h2>
               </div>
               <div className="fest__desc">
                 <p>
-                  Every year, Mohalla Mali Tibba comes alive with vibrant celebrations honouring
-                  Bajrang Bali. The lanes are adorned with flowers, devotional music fills the air,
-                  and the entire community gathers in joyous reverence — a tradition passed down
-                  through generations that truly defines the spirit of this mohalla.
+                  {t('story.festDesc')}
                 </p>
                 <button className="fest__readmore" onClick={() => navigate('/temples')}>
-                  Read more &rarr;
+                  {t('story.readMore')}
                 </button>
               </div>
             </div>
 
             {/* ── Right: Explore More Items ── */}
             <div className="fest__right">
-              <span className="fest__explore-badge">Explore more</span>
+              <span className="fest__explore-badge" onClick={() => navigate('/temples')} style={{ cursor: 'pointer' }}>{t('story.exploreMore')}</span>
               <div className="fest__items">
                 <div className="fest__item">
                   <img src={shanidev} alt="Festival" className="fest__item-img" />
                   <div className="fest__item-body">
-                    <h3>Shanidev Mandir</h3>
-                    <p>Experience the grandeur of Hanuman Jayanti celebrations in Mali Tibba — a colourful procession of devotion, music, and community spirit.</p>
-                    <button className="fest__item-link" onClick={() => navigate('/temples')}>Read more &rarr;</button>
+                    <h3>{t('story.festItem1Title')}</h3>
+                    <p>{t('story.festItem1Desc')}</p>
+                    <button className="fest__item-link" onClick={() => navigate('/temples')}>{t('story.readMore')}</button>
                   </div>
                 </div>
                 <div className="fest__item">
                   <img src={balaji} alt="Festival" className="fest__item-img" />
                   <div className="fest__item-body">
-                    <h3>Sitaram Maharaj</h3>
-                    <p>Stroll through the historic lanes of Mali Tibba and discover centuries-old architecture, hidden temples, and stories etched into every wall.</p>
-                    <button className="fest__item-link" onClick={() => navigate('/temples')}>Read more &rarr;</button>
+                    <h3>{t('story.festItem2Title')}</h3>
+                    <p>{t('story.festItem2Desc')}</p>
+                    <button className="fest__item-link" onClick={() => navigate('/temples')}>{t('story.readMore')}</button>
                   </div>
                 </div>
                 <div className="fest__item">
                   <img src={balaji} alt="Festival" className="fest__item-img" />
                   <div className="fest__item-body">
-                    <h3>Thakur ji Mandir</h3>
-                    <p>Witness the soulful Haryanvi folk music and dance performances that breathe life into the traditions of Narnaul at every festive occasion.</p>
-                    <button className="fest__item-link" onClick={() => navigate('/temples')}>Read more &rarr;</button>
+                    <h3>{t('story.festItem3Title')}</h3>
+                    <p>{t('story.festItem3Desc')}</p>
+                    <button className="fest__item-link" onClick={() => navigate('/temples')}>{t('story.readMore')}</button>
                   </div>
                 </div>
               </div>
@@ -248,12 +254,11 @@ function MaliTibbaDetail() {
         <section className="trip-ideas">
           {/* Left: intro card */}
           <div className="trip-ideas__intro">
-            <h2 className="trip-ideas__intro-title">Culture &amp; Festivals</h2>
+            <h2 className="trip-ideas__intro-title">{t('story.cultureTitle')}</h2>
             <p className="trip-ideas__intro-desc">
-              Discover the vibrant traditions of Mali Tibba — from colourful religious processions
-              and folk music to age-old rituals that bind this community together across generations.
+              {t('story.cultureDesc')}
             </p>
-            <button className="trip-ideas__explore-link" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }} onClick={() => navigate('/culture')}>Explore more &rarr;</button>
+            <button className="trip-ideas__explore-link" style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }} onClick={() => navigate('/culture')}>{t('story.exploreMore')} &rarr;</button>
           </div>
 
           {/* Right: three image cards */}
@@ -263,12 +268,12 @@ function MaliTibbaDetail() {
               <div className="trip-card__img-wrap">
                 <img src={balaji} alt="Hanuman Jayanti" className="trip-card__img" />
               </div>
-              <h3 className="trip-card__title">Hanuman Jayanti Celebration</h3>
+              <h3 className="trip-card__title">{t('story.cultureCard1Title')}</h3>
               <ul className="trip-card__bullets">
-                <li>Grand procession through Mali Tibba lanes</li>
-                <li>Devotional music &amp; community feast</li>
+                <li>{t('story.cultureCard1Li1')}</li>
+                <li>{t('story.cultureCard1Li2')}</li>
               </ul>
-              <button className="trip-card__readmore" onClick={() => navigate('/culture')}>Read more &rarr;</button>
+              <button className="trip-card__readmore" onClick={() => navigate('/culture')}>{t('story.readMore')}</button>
             </div>
 
             {/* Card 2 */}
@@ -276,12 +281,11 @@ function MaliTibbaDetail() {
               <div className="trip-card__img-wrap">
                 <img src={balaji} alt="Folk Music Evening" className="trip-card__img" />
               </div>
-              <h3 className="trip-card__title">Haryanvi Folk Music Evenings</h3>
+              <h3 className="trip-card__title">{t('story.cultureCard2Title')}</h3>
               <p className="trip-card__desc">
-                Soulful performances of Ragini and Saang fill the air every festive season,
-                keeping centuries-old traditions alive in the heart of Narnaul.
+                {t('story.cultureCard2Desc')}
               </p>
-              <button className="trip-card__readmore" onClick={() => navigate('/culture')}>Read more &rarr;</button>
+              <button className="trip-card__readmore" onClick={() => navigate('/culture')}>{t('story.readMore')}</button>
             </div>
 
             {/* Card 3 */}
@@ -289,19 +293,18 @@ function MaliTibbaDetail() {
               <div className="trip-card__img-wrap">
                 <img src={balaji} alt="Heritage Walk" className="trip-card__img" />
               </div>
-              <h3 className="trip-card__title">Heritage Lane Walk</h3>
+              <h3 className="trip-card__title">{t('story.cultureCard3Title')}</h3>
               <p className="trip-card__desc">
-                Stroll the historic lanes of Mali Tibba and discover centuries-old architecture,
-                hidden temples, and stories etched into every wall.
+                {t('story.cultureCard3Desc')}
               </p>
-              <button className="trip-card__readmore" onClick={() => navigate('/culture')}>Read more &rarr;</button>
+              <button className="trip-card__readmore" onClick={() => navigate('/culture')}>{t('story.readMore')}</button>
             </div>
           </div>
         </section>
         {/* ── History Section ── */}
         <section className="history-section">
           <div className="history-section__header">
-            <h2 className="history-section__title">History &amp; Heritage</h2>
+            <h2 className="history-section__title">{t('story.historyTitle')}</h2>
             <svg width="100" height="18" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2 10C10.5 2 17.5 18 26 10C34.5 2 41.5 18 50 10C58.5 2 65.5 18 74 10C82.5 2 89.5 18 98 10C106.5 2 113.5 18 118 10" stroke="rgb(79,39,68)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -317,15 +320,13 @@ function MaliTibbaDetail() {
             {/* 1. Maroon card — top-left, z-index 2 */}
             <div className="hcard hcard--maroon">
               <div className="hcard__title-bar hcard__title-bar--orange">
-                <h3 className="hcard__title">Sobha Sagar Talab</h3>
+                <h3 className="hcard__title">{t('story.historyCard1Title')}</h3>
               </div>
               <div className="hcard__body">
                 <p className="hcard__desc">
-                  Mali Tibba carries centuries of history within its narrow lanes and old havelis.
-                  Once a thriving centre of trade and craftsmanship, the mohalla saw the rise of
-                  local artisans, scholars, and community leaders who shaped the identity of Narnaul.
+                  {t('story.historyCard1Desc')}
                 </p>
-                <button className="hcard__link" onClick={() => navigate('/history')}>Explore History &rarr;</button>
+                <button className="hcard__link" onClick={() => navigate('/history')}>{t('story.historyExploreBtn')}</button>
               </div>
             </div>
 
@@ -342,15 +343,13 @@ function MaliTibbaDetail() {
             {/* 4. Golden card — bottom-right, z-index 1, sits BEHIND photos */}
             <div className="hcard hcard--golden">
               <div className="hcard__title-bar hcard__title-bar--purple">
-                <h3 className="hcard__title">Lal Pahadi — The Red Hill</h3>
+                <h3 className="hcard__title">{t('story.historyCard2Title')}</h3>
               </div>
               <div className="hcard__body">
                 <p className="hcard__desc">
-                  Overlooking the mohalla stands the iconic Lal Pahadi, a rocky hillock steeped
-                  in folklore and spiritual significance. Locals recount tales of saints, warriors,
-                  and monsoon festivals held under its shadow across generations.
+                  {t('story.historyCard2Desc')}
                 </p>
-                <button className="hcard__link" onClick={() => navigate('/history')}>Find out more &rarr;</button>
+                <button className="hcard__link" onClick={() => navigate('/history')}>{t('story.historyFindMoreBtn')}</button>
               </div>
             </div>
 
@@ -362,22 +361,24 @@ function MaliTibbaDetail() {
           <div className="blog-section__header">
             <div className="blog-section__title-row">
               <div>
-                <h2 className="blog-section__title">Community Blogs</h2>
+                <h2 className="blog-section__title">{t('story.blogsTitle')}</h2>
                 <svg width="120" height="18" viewBox="0 0 140 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginTop: '4px' }}>
                   <path d="M2 10C12 2 20 18 30 10C40 2 48 18 58 10C68 2 76 18 86 10C96 2 104 18 114 10C124 2 132 18 138 10" stroke="rgb(154,204,192)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <div className="blog-section__actions">
                 <button className="blog-btn blog-btn--outline" id="see-all-blogs-btn" onClick={handleSeeAll}>
-                  See All Blogs →
+                  {t('story.seeAllBtn')}
                 </button>
-                <button className="blog-btn blog-btn--primary" id="publish-blog-btn" onClick={() => setShowPublish(true)}>
-                  + Publish Blog
-                </button>
+                {user && (
+                  <button className="blog-btn blog-btn--primary" id="publish-blog-btn" onClick={() => setShowPublish(true)}>
+                    {t('story.publishBtn')}
+                  </button>
+                )}
               </div>
             </div>
             <p className="blog-section__subtitle">
-              Stories, memories and voices from the heart of Mali Tibba — written by our community.
+              {t('story.blogsSubtitle')}
             </p>
           </div>
 
@@ -390,10 +391,12 @@ function MaliTibbaDetail() {
             ) : topBlogs.length === 0 ? (
               <div className="blog-empty">
                 <span className="blog-empty__icon">📝</span>
-                <p>No blogs yet. Be the first to share your story!</p>
-                <button className="blog-btn blog-btn--primary" onClick={() => setShowPublish(true)}>
-                  Publish the first blog
-                </button>
+                <p>{t('story.noBlogs')}</p>
+                {user && (
+                  <button className="blog-btn blog-btn--primary" onClick={() => setShowPublish(true)}>
+                    {t('story.publishFirstBtn')}
+                  </button>
+                )}
               </div>
             ) : (
               topBlogs.map((blog, i) => (
@@ -411,7 +414,7 @@ function MaliTibbaDetail() {
         <div className="blog-modal-overlay" onClick={() => setShowAllBlogs(false)}>
           <div className="blog-modal" onClick={e => e.stopPropagation()}>
             <div className="blog-modal__header">
-              <h2 className="blog-modal__title">All Community Blogs</h2>
+              <h2 className="blog-modal__title">{t('story.allBlogsTitle')}</h2>
               <button className="blog-modal__close" onClick={() => setShowAllBlogs(false)} aria-label="Close">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                   <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
@@ -422,7 +425,7 @@ function MaliTibbaDetail() {
               {allBlogs.length === 0 ? (
                 <div className="blog-empty">
                   <span className="blog-empty__icon">📭</span>
-                  <p>No blogs published yet.</p>
+                  <p>{t('story.noBlogsPublished')}</p>
                 </div>
               ) : (
                 <div className="blog-modal-list">
@@ -441,7 +444,7 @@ function MaliTibbaDetail() {
         <div className="blog-modal-overlay" onClick={() => setShowPublish(false)}>
           <div className="blog-modal blog-modal--publish" onClick={e => e.stopPropagation()}>
             <div className="blog-modal__header">
-              <h2 className="blog-modal__title">✍️ Publish a Blog</h2>
+              <h2 className="blog-modal__title">{t('story.publishModalTitle')}</h2>
               <button className="blog-modal__close" onClick={() => setShowPublish(false)} aria-label="Close">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                   <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
@@ -452,8 +455,8 @@ function MaliTibbaDetail() {
               {publishSuccess ? (
                 <div className="publish-success">
                   <div className="publish-success__icon">🎉</div>
-                  <h3>Blog Published!</h3>
-                  <p>Your story is now live on Mali Tibba.</p>
+                  <h3>{t('story.publishSuccessMsg')}</h3>
+                  <p>{t('story.publishSuccessSub')}</p>
                 </div>
               ) : (
                 <form className="publish-form" onSubmit={handlePublish} encType="multipart/form-data">
@@ -465,8 +468,8 @@ function MaliTibbaDetail() {
                       ) : (
                         <div className="publish-form__image-placeholder">
                           <span className="publish-form__image-icon">🖼️</span>
-                          <span>Click to upload a cover image</span>
-                          <span className="publish-form__image-hint">JPG, PNG, WEBP — max 1 image</span>
+                          <span>{t('story.clickToUpload')}</span>
+                          <span className="publish-form__image-hint">{t('story.max1Image')}</span>
                         </div>
                       )}
                     </label>
@@ -479,29 +482,29 @@ function MaliTibbaDetail() {
                     />
                     {imagePreview && (
                       <button type="button" className="publish-form__image-remove" onClick={() => { setImageFile(null); setImagePreview(null) }}>
-                        Remove image ✕
+                        {t('story.removeImg')}
                       </button>
                     )}
                   </div>
 
                   <div className="publish-form__group">
-                    <label className="publish-form__label" htmlFor="blog-title">Blog Title *</label>
-                    <input id="blog-title" className="publish-form__input" name="title" value={form.title} onChange={handleFormChange} placeholder="Give your blog a compelling title…" required />
+                    <label className="publish-form__label" htmlFor="blog-title">{t('story.blogTitleLabel')}</label>
+                    <input id="blog-title" className="publish-form__input" name="title" value={form.title} onChange={handleFormChange} placeholder={t('story.blogTitlePlaceholder')} required />
                   </div>
 
                   <div className="publish-form__group">
-                    <label className="publish-form__label" htmlFor="blog-content">Your Story *</label>
-                    <textarea id="blog-content" className="publish-form__textarea" name="content" value={form.content} onChange={handleFormChange} placeholder="Share your memories, experiences or stories about Mali Tibba…" rows={6} required />
+                    <label className="publish-form__label" htmlFor="blog-content">{t('story.blogContentLabel')}</label>
+                    <textarea id="blog-content" className="publish-form__textarea" name="content" value={form.content} onChange={handleFormChange} placeholder={t('story.blogContentPlaceholder')} rows={6} required />
                   </div>
 
                   <div className="publish-form__row">
                     <div className="publish-form__group">
-                      <label className="publish-form__label" htmlFor="blog-author">Author Name *</label>
-                      <input id="blog-author" className="publish-form__input" name="author" value={form.author} onChange={handleFormChange} placeholder="Your name" required />
+                      <label className="publish-form__label" htmlFor="blog-author">{t('story.authorLabel')}</label>
+                      <input id="blog-author" className="publish-form__input" name="author" value={form.author} onChange={handleFormChange} placeholder={t('story.authorPlaceholder')} required />
                     </div>
                     <div className="publish-form__group">
-                      <label className="publish-form__label" htmlFor="blog-contact">Contact (optional)</label>
-                      <input id="blog-contact" className="publish-form__input" name="contact" value={form.contact} onChange={handleFormChange} placeholder="Email or phone" />
+                      <label className="publish-form__label" htmlFor="blog-contact">{t('story.contactLabel')}</label>
+                      <input id="blog-contact" className="publish-form__input" name="contact" value={form.contact} onChange={handleFormChange} placeholder={t('story.contactPlaceholder')} />
                     </div>
                   </div>
 
@@ -509,8 +512,8 @@ function MaliTibbaDetail() {
 
                   <button type="submit" className="blog-btn blog-btn--primary publish-form__submit" disabled={publishing}>
                     {publishing ? (
-                      <span className="publish-spinner">Publishing…</span>
-                    ) : 'Publish Blog →'}
+                      <span className="publish-spinner">{t('story.publishing')}</span>
+                    ) : t('story.publishSubmit')}
                   </button>
                 </form>
               )}

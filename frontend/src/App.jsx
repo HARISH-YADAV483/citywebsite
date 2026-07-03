@@ -9,6 +9,7 @@ import TemplesPage from './components/TemplesPage'
 import CulturePage from './components/CulturePage'
 import HistoryPage from './components/HistoryPage'
 import LanguagePopup from './components/LanguagePopup'
+import AuthPage from './components/AuthPage'
 import './App.css'
 
 function App() {
@@ -32,6 +33,8 @@ function App() {
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/blog/:id" element={<FullBlog />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/login" element={<AuthPage />} />
+        <Route path="/register" element={<AuthPage />} />
       </Routes>
     </>
   )

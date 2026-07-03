@@ -1,0 +1,183 @@
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1f1c2c 0%, #928DAB 100%);
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px;
+}
+
+.auth-card h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+    font-size: 2rem;
+}
+
+.auth-error {
+    background: #ffebee;
+    color: #c62828;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #555;
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #f26b38; /* Based on typical Mali Tibba theme color */
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+.auth-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #f26b38;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.1s;
+    margin-top: 1rem;
+}
+
+.auth-btn:hover {
+    background-color: #d95a2b;
+}
+
+.auth-btn:active {
+    transform: scale(0.98);
+}
+
+.auth-btn.secondary {
+    background-color: #777;
+    margin-top: 10px;
+}
+
+.auth-btn.secondary:hover {
+    background-color: #555;
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.auth-switch span {
+    color: #f26b38;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.auth-switch span:hover {
+    text-decoration: underline;
+}
+
+/* Quiz Section */
+.quiz-section {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.quiz-section h3 {
+    margin-top: 0;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.quiz-question {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #eee;
+}
+
+.quiz-question p {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    color: #444;
+}
+
+.quiz-result {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.quiz-result.success h3 {
+    color: #2e7d32;
+}
+
+.quiz-result.fail h3 {
+    color: #c62828;
+}
+
+.quiz-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}

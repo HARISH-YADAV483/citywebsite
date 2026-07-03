@@ -1,12 +1,24 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
+import { useTranslation } from 'react-i18next'
 import './Navbar.css'
 
 function Navbar({ variant }) {
   const isStory = variant === 'story'
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [lang, setLang] = useState('en')
+  const { t, i18n } = useTranslation()
+  const [lang, setLang] = useState(i18n.language || 'en')
+  
+  const { user, logout } = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+    setMenuOpen(false)
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,24 +35,14 @@ function Navbar({ variant }) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [isStory])
 
-  // Check initial language from cookie if available
+  // Listen to language changes
   useEffect(() => {
-    const match = document.cookie.match(/googtrans=\/en\/([a-z]{2})/)
-    if (match && match[1]) {
-      setLang(match[1])
-    }
-  }, [])
+    setLang(i18n.language)
+  }, [i18n.language])
 
   const toggleLanguage = () => {
     const newLang = lang === 'en' ? 'hi' : 'en'
-    setLang(newLang)
-    
-    // Find the Google Translate combo box and trigger change
-    const combo = document.querySelector('.goog-te-combo')
-    if (combo) {
-      combo.value = newLang
-      combo.dispatchEvent(new Event('change'))
-    }
+    i18n.changeLanguage(newLang)
   }
 
   return (
@@ -48,8 +50,8 @@ function Navbar({ variant }) {
       <div className="navbar__brand">
         <span className="navbar__logo-dot" />
         {isStory
-          ? <Link to="/" className="navbar__title" style={{ textDecoration: 'none' }}>Mali Tibba</Link>
-          : <span className="navbar__title">Mali Tibba</span>
+          ? <Link to="/" className="navbar__title" style={{ textDecoration: 'none' }}>{t('nav.maliTibba')}</Link>
+          : <span className="navbar__title">{t('nav.maliTibba')}</span>
         }
       </div>
 
@@ -68,16 +70,16 @@ function Navbar({ variant }) {
         {isStory ? (
           /* Story page: links navigate back to home sections */
           <>
-            <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
-            <li><Link to="/#explore" onClick={() => setMenuOpen(false)}>Explore</Link></li>
-            <li><Link to="/gallery" onClick={() => setMenuOpen(false)}>Gallery</Link></li>
+            <li><Link to="/" onClick={() => setMenuOpen(false)}>{t('nav.home')}</Link></li>
+            <li><Link to="/#explore" onClick={() => setMenuOpen(false)}>{t('nav.explore')}</Link></li>
+            <li><Link to="/gallery" onClick={() => setMenuOpen(false)}>{t('nav.gallery')}</Link></li>
           </>
         ) : (
           /* Home page: anchor links for same-page sections */
           <>
-            <li><a href="#home" onClick={() => setMenuOpen(false)}>Home</a></li>
-            <li><a href="#explore" onClick={() => setMenuOpen(false)}>Explore</a></li>
-            <li><Link to="/gallery" onClick={() => setMenuOpen(false)}>Gallery</Link></li>
+            <li><a href="#home" onClick={() => setMenuOpen(false)}>{t('nav.home')}</a></li>
+            <li><a href="#explore" onClick={() => setMenuOpen(false)}>{t('nav.explore')}</a></li>
+            <li><Link to="/gallery" onClick={() => setMenuOpen(false)}>{t('nav.gallery')}</Link></li>
           </>
         )}
         <li className="navbar__lang-item">
@@ -87,11 +89,13 @@ function Navbar({ variant }) {
             <span className={lang === 'hi' ? 'active' : ''}>HI</span>
           </button>
         </li>
-        {!isStory && (
+        {user ? (
           <li>
-            <a href="#visit" className="navbar__cta" onClick={() => setMenuOpen(false)}>
-              Plan a Visit
-            </a>
+            <button className="navbar__cta" onClick={handleLogout}>{t('nav.logout')}</button>
+          </li>
+        ) : (
+          <li>
+            <Link to="/login" className="navbar__cta" onClick={() => setMenuOpen(false)}>{t('nav.login')}</Link>
           </li>
         )}
       </ul>

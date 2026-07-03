@@ -1,6 +1,8 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useContext } from 'react'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import { AuthContext } from '../context/AuthContext'
+import { useTranslation } from 'react-i18next'
 import './Gallery.css'
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3003'
@@ -17,6 +19,9 @@ function Gallery() {
   const [loadingMore, setLoadingMore] = useState(false)
   const [lightbox, setLightbox] = useState(null) // index into images array
   const [showContribute, setShowContribute] = useState(false)
+  const { t } = useTranslation()
+  
+  const { user, token } = useContext(AuthContext)
 
   // Lock scroll when overlay is open
   useEffect(() => {
@@ -78,12 +83,12 @@ function Gallery() {
           <div className="gallery-hero__bg-pattern" />
           <div className="gallery-hero__gradient" />
           <div className="gallery-hero__content">
-            <span className="gallery-hero__badge"> Community Gallery</span>
+            <span className="gallery-hero__badge">{t('gallery.badge')}</span>
             <h1 className="gallery-hero__title">
-              Mali Tibba in <span>Frames</span>
+              {t('gallery.title1')} <span>{t('gallery.title2')}</span>
             </h1>
             <p className="gallery-hero__subtitle">
-              Real moments, real memories — contributed by the community
+              {t('gallery.subtitle')}
             </p>
           </div>
         </div>
@@ -93,39 +98,43 @@ function Gallery() {
           {/* Toolbar */}
           <div className="gallery-toolbar">
             <div className="gallery-toolbar__left">
-              <h2>Photo Gallery</h2>
-              <p>{total > 0 ? `${total} photos contributed by the community` : 'Be the first to contribute a photo!'}</p>
+              <h2>{t('gallery.toolbarTitle')}</h2>
+              <p>{total > 0 ? `${total} ${t('gallery.toolbarSubtitlePlural')}` : t('gallery.toolbarSubtitleEmpty')}</p>
             </div>
-            <button
-              className="gallery-contribute-btn"
-              onClick={() => setShowContribute(true)}
-              id="gallery-contribute-btn"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                <line x1="12" y1="5" x2="12" y2="19" />
-                <line x1="5" y1="12" x2="19" y2="12" />
-              </svg>
-              Contribute a Photo
-            </button>
+            {user?.isResident && (
+              <button
+                className="gallery-contribute-btn"
+                onClick={() => setShowContribute(true)}
+                id="gallery-contribute-btn"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                {t('gallery.contributeBtn')}
+              </button>
+            )}
           </div>
 
           {/* Grid / States */}
           {loading ? (
             <div className="gallery-loading">
               <div className="gallery-spinner" />
-              Loading gallery…
+              {t('gallery.loading')}
             </div>
           ) : images.length === 0 ? (
             <div className="gallery-empty">
               <span className="gallery-empty__icon">🖼️</span>
-              <h3>No photos yet</h3>
-              <p>Be the first to share a memory of Mali Tibba!</p>
-              <button
-                className="gallery-contribute-btn"
-                onClick={() => setShowContribute(true)}
-              >
-                + Upload First Photo
-              </button>
+              <h3>{t('gallery.emptyTitle')}</h3>
+              <p>{t('gallery.emptyText')}</p>
+              {user?.isResident && (
+                <button
+                  className="gallery-contribute-btn"
+                  onClick={() => setShowContribute(true)}
+                >
+                  {t('gallery.addFirstBtn')}
+                </button>
+              )}
             </div>
           ) : (
             <>
@@ -166,11 +175,11 @@ function Gallery() {
                     {loadingMore ? (
                       <>
                         <div className="gallery-spinner" style={{ width: 18, height: 18, borderWidth: 2 }} />
-                        <span>Loading…</span>
+                        <span>{t('gallery.loadingMore')}</span>
                       </>
                     ) : (
                       <>
-                        <span>Load More Photos</span>
+                        <span>{t('gallery.loadMore')}</span>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                           <path d="M12 5v14M5 12l7 7 7-7" />
                         </svg>
@@ -182,7 +191,7 @@ function Gallery() {
 
               {/* Count info */}
               <p className="gallery-count-info">
-                Showing {images.length} of {total} photos
+                {t('gallery.showing')} {images.length} {t('gallery.of')} {total} {t('gallery.photos')}
               </p>
             </>
           )}
@@ -206,6 +215,7 @@ function Gallery() {
         <ContributeModal
           onClose={() => setShowContribute(false)}
           onSuccess={handleImageAdded}
+          token={token}
         />
       )}
     </>
@@ -339,7 +349,8 @@ function LightboxModal({ images, index, onClose, onNavigate }) {
 /* ─────────────────────────────────────────────────────────
    Contribute Modal
    ───────────────────────────────────────────────────────── */
-function ContributeModal({ onClose, onSuccess }) {
+function ContributeModal({ onClose, onSuccess, token }) {
+  const { t } = useTranslation()
   const [title, setTitle] = useState('')
   const [imageFile, setImageFile] = useState(null)
   const [preview, setPreview] = useState(null)
@@ -365,15 +376,19 @@ function ContributeModal({ onClose, onSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    if (!title.trim()) { setError('Please enter a title for the photo.'); return }
-    if (!imageFile)   { setError('Please select an image to upload.'); return }
+    if (!title.trim()) { setError(t('common.errTitle')); return }
+    if (!imageFile)   { setError(t('common.errImg')); return }
 
     setUploading(true)
     try {
       const fd = new FormData()
       fd.append('title', title.trim())
       fd.append('image', imageFile)
-      const res = await fetch(`${API}/api/gallery`, { method: 'POST', body: fd })
+      const res = await fetch(`${API}/api/gallery`, { 
+        method: 'POST', 
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: fd 
+      })
       if (!res.ok) {
         const body = await res.json().catch(() => ({}))
         throw new Error(body.error || 'Upload failed')
@@ -386,7 +401,7 @@ function ContributeModal({ onClose, onSuccess }) {
         onClose()
       }, 2200)
     } catch (err) {
-      setError(err.message || 'Upload failed. Please try again.')
+      setError(err.message || t('common.errUpload'))
     } finally {
       setUploading(false)
     }
@@ -401,7 +416,7 @@ function ContributeModal({ onClose, onSuccess }) {
     >
       <div className="contribute-modal" onClick={e => e.stopPropagation()}>
         <div className="contribute-modal__header">
-          <h2 className="contribute-modal__title">📸 Contribute a Photo</h2>
+          <h2 className="contribute-modal__title">{t('gallery.modalTitle')}</h2>
           <button className="contribute-modal__close" onClick={onClose} aria-label="Close">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -414,8 +429,8 @@ function ContributeModal({ onClose, onSuccess }) {
           {success ? (
             <div className="contribute-success">
               <span className="contribute-success__icon">🎉</span>
-              <h3>Photo Uploaded!</h3>
-              <p>Your photo is now part of the Mali Tibba gallery.</p>
+              <h3>{t('gallery.successMsg')}</h3>
+              <p>{t('gallery.successSub')}</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -432,8 +447,8 @@ function ContributeModal({ onClose, onSuccess }) {
                 ) : (
                   <div className="contribute-upload-placeholder">
                     <span className="contribute-upload-icon">🖼️</span>
-                    <span className="contribute-upload-hint">Click to choose a photo</span>
-                    <span className="contribute-upload-sub">JPG, PNG, WEBP supported</span>
+                    <span className="contribute-upload-hint">{t('common.clickChoose')}</span>
+                    <span className="contribute-upload-sub">{t('common.supportedFormats')}</span>
                   </div>
                 )}
               </label>
@@ -451,14 +466,14 @@ function ContributeModal({ onClose, onSuccess }) {
                   style={{ marginBottom: 16, display: 'block', marginLeft: 'auto' }}
                   onClick={() => { setImageFile(null); setPreview(null) }}
                 >
-                  Remove ✕
+                  {t('common.removeImg')}
                 </button>
               )}
 
               {/* Title */}
               <div className="contribute-form-group">
                 <label className="contribute-form-label" htmlFor="gallery-title-input">
-                  Photo Title *
+                  {t('common.photoTitleLabel')}
                 </label>
                 <input
                   id="gallery-title-input"
@@ -466,7 +481,7 @@ function ContributeModal({ onClose, onSuccess }) {
                   type="text"
                   value={title}
                   onChange={e => setTitle(e.target.value)}
-                  placeholder="Give your photo a descriptive title…"
+                  placeholder={t('gallery.photoTitlePlaceholder')}
                   maxLength={120}
                   required
                 />
@@ -480,7 +495,7 @@ function ContributeModal({ onClose, onSuccess }) {
                 disabled={uploading}
                 id="gallery-upload-submit-btn"
               >
-                {uploading ? 'Uploading…' : 'Upload to Gallery →'}
+                {uploading ? t('common.uploading') : t('gallery.uploadBtn')}
               </button>
             </form>
           )}

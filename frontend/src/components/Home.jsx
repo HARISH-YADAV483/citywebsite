@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import narnaul from '../assets/narnaul.png'
 import video from '../assets/video.mp4'
 import './Home.css'
 
 function Home() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const [loaderHovered, setLoaderHovered] = useState(false)
   
   
@@ -19,12 +21,12 @@ function Home() {
           <div className="hero-overlay" />
 
           <div className="hero-content">
-            <span className="hero-eyebrow">📍 Narnaul, Haryana</span>
+            <span className="hero-eyebrow">{t('home.eyebrow')}</span>
             <h1 className="hero-title">
-              Mohalla<br />
-              <span className="hero-title--accent">Mali Tibba</span>
+              {t('home.title1')}<br />
+              <span className="hero-title--accent">{t('home.title2')}</span>
             </h1>
-            <p className="hero-subtitle">A Place for Peace &amp; Entertainment</p>
+            <p className="hero-subtitle">{t('home.subtitle')}</p>
 
             <div className="hero-actions">
               <button
@@ -32,7 +34,7 @@ function Home() {
                 id="explore-btn"
                 onClick={() => navigate('/story')}
               >
-                Explore Mali Tibba
+                {t('home.exploreBtn')}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
@@ -40,7 +42,7 @@ function Home() {
               </button>
               <button className="hero-btn hero-btn--secondary" id="scroll-down-btn"
                 onClick={() => document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth' })}>
-                Scroll Down
+                {t('home.scrollBtn')}
               </button>
             </div>
           </div>
@@ -59,30 +61,27 @@ function Home() {
             <div className="info-panel__deco" />
 
             <div className="info-panel__content">
-              <span className="info-panel__tag">Heritage Mohalla</span>
-              <h2 className="info-panel__title">Mohalla Mali Tibba</h2>
+              <span className="info-panel__tag">{t('home.heritageTag')}</span>
+              <h2 className="info-panel__title">{t('home.aboutTitle')}</h2>
               <svg className="info-panel__squiggly" width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginBottom: '24px' }}>
                 <path d="M2 10C10.5 2 17.5 18 26 10C34.5 2 41.5 18 50 10C58.5 2 65.5 18 74 10C82.5 2 89.5 18 98 10C106.5 2 113.5 18 118 10" stroke="rgb(154, 204, 192)" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
               <p className="info-panel__text">
-                Nestled in the heart of historic Narnaul, Mohalla Mali Tibba is a vibrant
-                community that echoes with centuries of culture, warmth, and tradition. It is a
-                place where every stone tells a story and every lane opens into a world of
-                timeless heritage.
+                {t('home.aboutDesc')}
               </p>
 
               <div className="info-panel__stats">
                 <div className="info-stat">
                   <span className="info-stat__num">100+</span>
-                  <span className="info-stat__label">Years of History</span>
+                  <span className="info-stat__label">{t('home.stat1')}</span>
                 </div>
                 <div className="info-stat">
                   <span className="info-stat__num">∞</span>
-                  <span className="info-stat__label">Stories to Tell</span>
+                  <span className="info-stat__label">{t('home.stat2')}</span>
                 </div>
                 <div className="info-stat">
                   <span className="info-stat__num">1</span>
-                  <span className="info-stat__label">Unique Mohalla</span>
+                  <span className="info-stat__label">{t('home.stat3')}</span>
                 </div>
               </div>
 
@@ -91,7 +90,7 @@ function Home() {
                 id="info-panel-cta-btn"
                 onClick={() => navigate('/story')}
               >
-                Discover the Full Story
+                {t('home.discoverBtn')}
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
@@ -121,13 +120,13 @@ function Home() {
 
              
               <div className="hud-label__inner">
-                <div className="hud-label__tag">GEO // 28.0442°N</div>
-                <div className="hud-label__city">NARNAUL</div>
+                <div className="hud-label__tag">{t('home.mapLabel1')}</div>
+                <div className="hud-label__city">{t('home.mapLabel2')}</div>
                 <div className="hud-label__sub">
                   <span className="hud-label__dot" />
-                  HARYANA · INDIA
+                  {t('home.mapLabel3')}
                 </div>
-                <div className="hud-label__coords">76.1081°E · ALT 267m</div>
+                <div className="hud-label__coords">{t('home.mapLabel4')}</div>
               </div>
 
             
@@ -155,14 +154,14 @@ function Home() {
                 {/* Mali Tibba label attached to pin */}
                 <div className="map-pin__label">
                   <div className="map-pin__label-line" />
-                  <span className="map-pin__label-text">Mohalla Mali Tibba</span>
+                  <span className="map-pin__label-text">{t('home.pinText')}</span>
                 </div>
               </button>
             </div>
 
             <div className="map-panel__label">
               <span>📍</span>
-              <span>Click the pin to explore</span>
+              <span>{t('home.clickPin')}</span>
             </div>
           </div>
         </section>

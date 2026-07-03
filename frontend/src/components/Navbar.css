@@ -189,6 +189,7 @@
   transition: all 0.3s ease !important;
   box-shadow: 0 4px 18px rgba(79, 39, 68, 0.35) !important;
   text-shadow: none !important;
+  font-size: 0.7rem !important;
 }
 
 .navbar__cta:hover {

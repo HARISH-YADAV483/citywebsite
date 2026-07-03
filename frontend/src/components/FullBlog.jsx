@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
+import { useTranslation } from 'react-i18next'
 import './FullBlog.css'
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3003'
@@ -12,6 +13,7 @@ function FullBlog() {
   const [blog, setBlog] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const { t } = useTranslation()
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -30,7 +32,7 @@ function FullBlog() {
         <Navbar variant="story" />
         <div className="fb-loading">
           <div className="fb-loading__bar" />
-          <p>Loading blog…</p>
+          <p>{t('fullBlog.loading')}</p>
         </div>
         <Footer />
       </>
@@ -43,10 +45,10 @@ function FullBlog() {
         <Navbar variant="story" />
         <div className="fb-error">
           <span className="fb-error__icon">📭</span>
-          <h2>Blog not found</h2>
-          <p>{error || 'This blog does not exist or was removed.'}</p>
+          <h2>{t('fullBlog.notFound')}</h2>
+          <p>{error || t('fullBlog.notFoundDesc')}</p>
           <button className="fb-back-btn" onClick={() => navigate('/story')}>
-            ← Back to Mali Tibba
+            {t('fullBlog.backBtn')}
           </button>
         </div>
         <Footer />
@@ -71,7 +73,7 @@ function FullBlog() {
             <line x1="19" y1="12" x2="5" y2="12" />
             <polyline points="12 19 5 12 12 5" />
           </svg>
-          Back
+          {t('fullBlog.back')}
         </button>
 
         {/* Hero image */}
@@ -86,7 +88,7 @@ function FullBlog() {
         <article className={`fb-article ${!blog.image ? 'fb-article--no-hero' : ''}`}>
           {/* Meta */}
           <div className="fb-article__meta">
-            <span className="fb-article__badge">📍 Mali Tibba Community Blog</span>
+            <span className="fb-article__badge">{t('fullBlog.badge')}</span>
           </div>
 
           {/* Title */}
@@ -127,7 +129,7 @@ function FullBlog() {
           {/* Footer */}
           <div className="fb-article__footer">
             <button className="fb-back-btn" onClick={() => navigate('/story')}>
-              ← Back to Mali Tibba
+              {t('fullBlog.backBtn')}
             </button>
           </div>
         </article>
