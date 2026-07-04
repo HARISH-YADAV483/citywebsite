@@ -122,14 +122,25 @@ export default function HistoryPage() {
               <h2 className="pt-list-title">{t('history.listTitle')}</h2>
               <p className="pt-list-subtitle">{t('history.listSubtitle')}</p>
             </div>
-            {user?.isResident && (
-              <button className="pt-contribute-btn" id="history-contribute-btn" onClick={() => setShowContribute(true)}>
+            {user?.isResident ? (
+              <button
+                className="pt-contribute-btn"
+                onClick={() => setShowContribute(true)}
+              >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
                 {t('history.contributeBtn')}
               </button>
-            )}
+            ) : !user ? (
+              <button
+                className="pt-contribute-btn"
+                onClick={() => navigate('/login')}
+              >
+                {t('common.loginToContribute')}
+              </button>
+            ) : null}
           </div>
 
           {loading && allItems.length === STATIC_HISTORY.length ? (
@@ -148,9 +159,21 @@ export default function HistoryPage() {
             <div className="pt-list-empty">
               <span className="pt-list-empty__icon">🏰</span>
               <p>{t('history.emptyText')}</p>
-              {user?.isResident && (
-                <button className="pt-contribute-btn" onClick={() => setShowContribute(true)}>{t('history.addFirstBtn')}</button>
-              )}
+              {user?.isResident ? (
+                <button
+                  className="pt-contribute-btn"
+                  onClick={() => setShowContribute(true)}
+                >
+                  {t('history.addFirstBtn')}
+                </button>
+              ) : !user ? (
+                <button
+                  className="pt-contribute-btn"
+                  onClick={() => navigate('/login')}
+                >
+                  {t('common.loginToContribute')}
+                </button>
+              ) : null}
             </div>
           ) : (
             <div className="pt-list-grid">

@@ -10,20 +10,15 @@ import shanidev from '../assets/shanidev.webp'
 import narnaul from '../assets/narnaul.png'
 import madiBg from '../assets/madi.webp'
 import FlowerRain from './FlowerRain'
+import sitaram from '../assets/sitaram.webp'
+import thakurji from '../assets/thakurji.webp'
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3003'
 const CATEGORY = 'temples'
 
 /* ── Static hardcoded temple data ── */
 const STATIC_TEMPLES = [
-  {
-    id: 'shanidev',
-    title: 'Shanidev Mandir',
-    image: shanidev,
-    desc: 'The Shanidev Mandir is one of the most revered spiritual sites in Mali Tibba, drawing devotees from all over Narnaul. Its peaceful courtyard and ancient idol have been a focal point of Saturday rituals for decades.',
-    location: 'https://www.google.com/maps/place/Shani+Dev+Mandir/@28.0368343,76.0365486,13z/data=!4m10!1m2!2m1!1sShanidev+Mandir+Narnaul!3m6!1s0x3912b5c169498f33:0x41603c0d3dcdf569!8m2!3d28.0368125!4d76.1127362!15sChdTaGFuaWRldiBNYW5kaXIgTmFybmF1bJIBDGhpbmR1X3RlbXBsZeABAA!16s%2Fg%2F11d_7yf1hc?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D'
-  },
-  {
+   {
     id: 'hanuman',
     title: ' Kadia Wala HanumanJi Mandir',
     image: balaji,
@@ -31,17 +26,25 @@ const STATIC_TEMPLES = [
     location: 'https://www.google.com/maps/place/Kadia+Wala+Hanuman+Ji+Mandir/@28.0343129,76.111785,17z/data=!3m1!4b1!4m6!3m5!1s0x3912b5c71ed5bd57:0xe0d17e203b19c64!8m2!3d28.0343083!4d76.1166559!16s%2Fg%2F11ddykl1fv?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D'
   },
   {
+    id: 'shanidev',
+    title: 'Shanidev Mandir',
+    image: shanidev,
+    desc: 'Shanidev Mandir, Maliti Tibba is a sacred temple dedicated to Lord Shani, located near Shobha Sagar Talab. It is a place of worship and devotion where devotees come to seek blessings and experience peace, especially on Saturdays.',
+    location: 'https://www.google.com/maps/place/Shani+Dev+Mandir/@28.0368343,76.0365486,13z/data=!4m10!1m2!2m1!1sShanidev+Mandir+Narnaul!3m6!1s0x3912b5c169498f33:0x41603c0d3dcdf569!8m2!3d28.0368125!4d76.1127362!15sChdTaGFuaWRldiBNYW5kaXIgTmFybmF1bJIBDGhpbmR1X3RlbXBsZeABAA!16s%2Fg%2F11d_7yf1hc?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D'
+  },
+ 
+  {
     id: 'sitaram',
     title: 'Sitaram Maharaj',
-    image: balaji,
-    desc: 'A quiet, serene temple dedicated to Lord Ram and Sita. Known for its intricate stone carvings and morning aarti, it offers a peaceful retreat from the bustling lanes of Mali Tibba.',
+    image: sitaram,
+    desc: 'Sitaram Maharaj Mandir is a revered temple located near Shobha Sagar Talab. Dedicated to Sitaram Maharaj, it is a peaceful place of worship where devotees gather to offer prayers, seek blessings, and find spiritual comfort.',
     location: 'https://www.google.com/maps/place/Shobha+Sagar+Talab+And+Park/@28.0374961,76.1149871,15z/data=!4m15!1m8!3m7!1s0x3912b5c1509f01f7:0xf3d58b59e910f8cb!2sShobha+Sagar+Talab+And+Park!8m2!3d28.0375732!4d76.1140534!10e5!16s%2Fg%2F11g8vvc_8f!3m5!1s0x3912b5c1509f01f7:0xf3d58b59e910f8cb!8m2!3d28.0375732!4d76.1140534!16s%2Fg%2F11g8vvc_8f!5m1!1e4?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D'
   },
   {
     id: 'thakurji',
     title: 'Thakur ji Mandir',
-    image: balaji,
-    desc: 'A beautiful historical temple that has stood the test of time, reflecting the traditional architecture of the region. It remains deeply connected to the daily lives of the local families.',
+    image: thakurji,
+    desc: 'Thakur Ji Mandir is a sacred temple dedicated to Lord Krishna. It is a peaceful place of worship where devotees gather to offer prayers, seek blessings, and celebrate religious festivals with devotion.',
     location: 'https://www.google.com/maps/place/Shobha+Sagar+Talab+And+Park/@28.0374961,76.1149871,15z/data=!4m15!1m8!3m7!1s0x3912b5c1509f01f7:0xf3d58b59e910f8cb!2sShobha+Sagar+Talab+And+Park!8m2!3d28.0375732!4d76.1140534!10e5!16s%2Fg%2F11g8vvc_8f!3m5!1s0x3912b5c1509f01f7:0xf3d58b59e910f8cb!8m2!3d28.0375732!4d76.1140534!16s%2Fg%2F11g8vvc_8f!5m1!1e4?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D'
   }
 ]
@@ -137,14 +140,25 @@ export default function TemplesPage() {
               <h2 className="pt-list-title">{t('temples.listTitle')}</h2>
               <p className="pt-list-subtitle">{t('temples.listSubtitle')}</p>
             </div>
-            {user?.isResident && (
-              <button className="pt-contribute-btn" id="temples-contribute-btn" onClick={() => setShowContribute(true)}>
+            {user?.isResident ? (
+              <button
+                className="pt-contribute-btn"
+                onClick={() => setShowContribute(true)}
+              >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
                 {t('temples.contributeBtn')}
               </button>
-            )}
+            ) : !user ? (
+              <button
+                className="pt-contribute-btn"
+                onClick={() => navigate('/login')}
+              >
+                {t('common.loginToContribute')}
+              </button>
+            ) : null}
           </div>
 
           {loading && allItems.length === STATIC_TEMPLES.length ? (
@@ -163,9 +177,21 @@ export default function TemplesPage() {
             <div className="pt-list-empty">
               <span className="pt-list-empty__icon">🛕</span>
               <p>{t('temples.emptyText')}</p>
-              {user?.isResident && (
-                <button className="pt-contribute-btn" onClick={() => setShowContribute(true)}>{t('temples.addFirstBtn')}</button>
-              )}
+                {user?.isResident ? (
+                  <button
+                    className="pt-contribute-btn"
+                    onClick={() => setShowContribute(true)}
+                  >
+                    {t('temples.addFirstBtn')}
+                  </button>
+                ) : !user ? (
+                  <button
+                    className="pt-contribute-btn"
+                    onClick={() => navigate('/login')}
+                  >
+                    {t('common.loginToContribute')}
+                  </button>
+                ) : null}
             </div>
           ) : (
             <div className="pt-list-grid">

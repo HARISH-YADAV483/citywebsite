@@ -11,6 +11,9 @@ import cultBg from '../assets/cult.webp'
 import lalpahadi from '../assets/lalpahadi.png'
 import imageWebp from '../assets/image.webp'
 import FlowerRain from './FlowerRain'
+import teej from '../assets/teej.webp'
+import shyamji from '../assets/shyamji.webp'
+
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3003'
 const CATEGORY = 'culture'
@@ -19,28 +22,28 @@ const CATEGORY = 'culture'
 const STATIC_CULTURE = [
   {
     id: 'hanuman-jayanti',
-    title: 'Hanuman Jayanti Procession',
-    image: lalpahadi,
+    title: 'Haryali teej celebration',
+    image: teej,
     desc: '',
     bullets: [
-      'Grand procession through Mali Tibba lanes',
-      'Devotional music & community feast'
+      'Hariyali Teej is celebrated with devotion, traditional songs, and festive joy.',
+      'People enjoy flying kites as part of the celebrations.'
     ],
     location: 'https://maps.google.com/?q=Mali+Tibba+Narnaul'
   },
   {
     id: 'folk-music',
-    title: 'Haryanvi Folk & Saang',
-    image: imageWebp,
-    desc: 'Soulful performances of Ragini and Saang fill the air every festive season, keeping centuries-old traditions alive in the heart of Narnaul.',
+    title: 'Khatushyam Daak Yatra',
+    image: shyamji,
+    desc: 'Devotees carry the Daak Jhanda from Maliti Tibba to Khatu Shyam Ji with deep faith and devotion. The sacred journey is completed by running, accompanied by DJ music and enthusiastic chants of Jai Shyam.',
     bullets: [],
     location: ''
   },
   {
     id: 'heritage-walks',
-    title: 'Heritage Trails',
-    image: lalpahadi,
-    desc: 'Stroll the historic lanes of Mali Tibba and discover centuries-old architecture, hidden temples, and stories etched into every wall.',
+    title: 'Traditional Wedding',
+    image: cultBg,
+    desc: 'Weddings in Mali Tibba are vibrant celebrations filled with traditional rituals, music, and community feasts.',
     bullets: [],
     location: 'https://maps.google.com/?q=Narnaul+Haryana'
   }
@@ -138,14 +141,25 @@ export default function CulturePage() {
               <h2 className="pt-list-title">{t('culture.listTitle')}</h2>
               <p className="pt-list-subtitle">{t('culture.listSubtitle')}</p>
             </div>
-            {user?.isResident && (
-              <button className="pt-contribute-btn" id="culture-contribute-btn" onClick={() => setShowContribute(true)}>
+            {user?.isResident ? (
+              <button
+                className="pt-contribute-btn"
+                onClick={() => setShowContribute(true)}
+              >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
                 {t('culture.contributeBtn')}
               </button>
-            )}
+            ) : !user ? (
+              <button
+                className="pt-contribute-btn"
+                onClick={() => navigate('/login')}
+              >
+                {t('common.loginToContribute')}
+              </button>
+            ) : null}
           </div>
 
           {loading && allItems.length === STATIC_CULTURE.length ? (
@@ -164,9 +178,21 @@ export default function CulturePage() {
             <div className="pt-list-empty">
               <span className="pt-list-empty__icon">🌺</span>
               <p>{t('culture.emptyText')}</p>
-              {user?.isResident && (
-                <button className="pt-contribute-btn" onClick={() => setShowContribute(true)}>{t('culture.addFirstBtn')}</button>
-              )}
+              {user?.isResident ? (
+                  <button
+                    className="pt-contribute-btn"
+                    onClick={() => setShowContribute(true)}
+                  >
+                    {t('culture.addFirstBtn')}
+                  </button>
+                ) : !user ? (
+                  <button
+                    className="pt-contribute-btn"
+                    onClick={() => navigate('/login')}
+                  >
+                    {t('common.loginToContribute')}
+                  </button>
+                ) : null}
             </div>
           ) : (
             <div className="pt-list-grid">
@@ -184,7 +210,7 @@ export default function CulturePage() {
                     {item.isStatic && <span className="pt-list-item__badge">{t('culture.historicalBadge')}</span>}
                     {!item.isStatic && <span className="pt-list-item__badge" style={{background: 'rgba(210,90,60,0.1)', color: 'rgb(210,90,60)'}}>{t('culture.communityBadge')}</span>}
                     <h3 className="pt-list-item__title">{item.title}</h3>
-                    {item.location && (
+                    {/* {item.location && (
                       <a href={item.location} target="_blank" rel="noopener noreferrer" className="pt-list-item__location">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
@@ -192,7 +218,7 @@ export default function CulturePage() {
                         </svg>
                         {t('culture.viewLocation')}
                       </a>
-                    )}
+                    )} */}
                     {item.bullets && item.bullets.length > 0 && (
                       <ul className="pt-list-item__bullets">
                         {item.bullets.map((b, idx) => <li key={idx}>{b}</li>)}

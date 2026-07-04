@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import { AuthContext } from '../context/AuthContext'
@@ -20,6 +21,7 @@ function Gallery() {
   const [lightbox, setLightbox] = useState(null) // index into images array
   const [showContribute, setShowContribute] = useState(false)
   const { t } = useTranslation()
+  const navigate = useNavigate()
   
   const { user, token } = useContext(AuthContext)
 
@@ -101,7 +103,7 @@ function Gallery() {
               <h2>{t('gallery.toolbarTitle')}</h2>
               <p>{total > 0 ? `${total} ${t('gallery.toolbarSubtitlePlural')}` : t('gallery.toolbarSubtitleEmpty')}</p>
             </div>
-            {user?.isResident && (
+            {user?.isResident ? (
               <button
                 className="gallery-contribute-btn"
                 onClick={() => setShowContribute(true)}
@@ -113,7 +115,14 @@ function Gallery() {
                 </svg>
                 {t('gallery.contributeBtn')}
               </button>
-            )}
+            ) : !user ? (
+              <button
+                className="gallery-contribute-btn"
+                onClick={() => navigate('/login')}
+              >
+                {t('common.loginToContribute')}
+              </button>
+            ) : null}
           </div>
 
           {/* Grid / States */}
@@ -127,14 +136,21 @@ function Gallery() {
               <span className="gallery-empty__icon">🖼️</span>
               <h3>{t('gallery.emptyTitle')}</h3>
               <p>{t('gallery.emptyText')}</p>
-              {user?.isResident && (
+              {user?.isResident ? (
                 <button
                   className="gallery-contribute-btn"
                   onClick={() => setShowContribute(true)}
                 >
                   {t('gallery.addFirstBtn')}
                 </button>
-              )}
+              ) : !user ? (
+                <button
+                  className="gallery-contribute-btn"
+                  onClick={() => navigate('/login')}
+                >
+                  {t('common.loginToContribute')}
+                </button>
+              ) : null}
             </div>
           ) : (
             <>

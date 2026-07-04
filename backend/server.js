@@ -102,8 +102,8 @@ const GalleryImage = mongoose.model("GalleryImage", GalleryImageSchema);
 
 const PageContributionSchema = new mongoose.Schema(
     {
-        title:    { type: String, required: true, trim: true },
-        text:     { type: String, default: "" },
+        title: { type: String, required: true, trim: true },
+        text: { type: String, default: "" },
         imageUrl: { type: String, required: true },
         category: { type: String, enum: ["temples", "culture", "history"], required: true },
         location: { type: String, default: "" },
@@ -267,15 +267,15 @@ app.post("/api/contributions", authMiddleware, contributionUpload.single("image"
         if (!req.user.isResident) {
             return res.status(403).json({ error: "Only verified residents can contribute to pages." });
         }
-        
+
         const { title, text, category, location } = req.body;
         if (!title) return res.status(400).json({ error: "Title is required" });
         if (!category) return res.status(400).json({ error: "Category is required" });
         if (!req.file) return res.status(400).json({ error: "Image is required" });
-        
+
         const result = await uploadToCloudinary(req.file.buffer, "malitibba-contributions", 1400, 1000);
         const imageUrl = result.secure_url;
-        
+
         const contribution = new PageContribution({ title, text: text || "", imageUrl, category, location: location || "", status: "pending" });
         await contribution.save();
         res.status(201).json(contribution);
@@ -310,10 +310,10 @@ app.post("/api/gallery", authMiddleware, galleryUpload.single("image"), async (r
         const { title } = req.body;
         if (!title) return res.status(400).json({ error: "Title is required" });
         if (!req.file) return res.status(400).json({ error: "Image is required" });
-        
+
         const result = await uploadToCloudinary(req.file.buffer, "malitibba-gallery", 1600, 1200);
         const imageUrl = result.secure_url;
-        
+
         const image = new GalleryImage({ title, imageUrl, status: "pending" });
         await image.save();
         res.status(201).json(image);

@@ -10,7 +10,7 @@ function Navbar({ variant }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const { t, i18n } = useTranslation()
   const [lang, setLang] = useState(i18n.language || 'en')
-  
+
   const { user, logout } = useContext(AuthContext)
   const navigate = useNavigate()
 

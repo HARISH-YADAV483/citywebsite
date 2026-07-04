@@ -11,6 +11,11 @@ import lalpahadi from '../assets/lalpahadi.png'
 import './Home.css'
 import Footer from './Footer'
 import shanidev from '../assets/shanidev.webp'
+import teej from '../assets/teej.webp'
+import shyam from '../assets/shyamji.webp'
+import shadi from '../assets/cult.webp'
+import sitaram from '../assets/sitaram.webp'
+import thakurji from '../assets/thakurji.webp'
 
 const facts = [
   { icon: '🪔', label: 'Festivals', value: 'Rich Culture' },
@@ -231,7 +236,7 @@ function MaliTibbaDetail() {
                   </div>
                 </div>
                 <div className="fest__item">
-                  <img src={balaji} alt="Festival" className="fest__item-img" />
+                  <img src={sitaram} alt="Festival" className="fest__item-img" />
                   <div className="fest__item-body">
                     <h3>{t('story.festItem2Title')}</h3>
                     <p>{t('story.festItem2Desc')}</p>
@@ -239,7 +244,7 @@ function MaliTibbaDetail() {
                   </div>
                 </div>
                 <div className="fest__item">
-                  <img src={balaji} alt="Festival" className="fest__item-img" />
+                  <img src={thakurji} alt="Festival" className="fest__item-img" />
                   <div className="fest__item-body">
                     <h3>{t('story.festItem3Title')}</h3>
                     <p>{t('story.festItem3Desc')}</p>
@@ -266,7 +271,7 @@ function MaliTibbaDetail() {
             {/* Card 1 */}
             <div className="trip-card">
               <div className="trip-card__img-wrap">
-                <img src={balaji} alt="Hanuman Jayanti" className="trip-card__img" />
+                <img src={teej} alt="Hanuman Jayanti" className="trip-card__img" />
               </div>
               <h3 className="trip-card__title">{t('story.cultureCard1Title')}</h3>
               <ul className="trip-card__bullets">
@@ -279,7 +284,7 @@ function MaliTibbaDetail() {
             {/* Card 2 */}
             <div className="trip-card">
               <div className="trip-card__img-wrap">
-                <img src={balaji} alt="Folk Music Evening" className="trip-card__img" />
+                <img src={shyam} alt="Folk Music Evening" className="trip-card__img" />
               </div>
               <h3 className="trip-card__title">{t('story.cultureCard2Title')}</h3>
               <p className="trip-card__desc">
@@ -291,7 +296,7 @@ function MaliTibbaDetail() {
             {/* Card 3 */}
             <div className="trip-card">
               <div className="trip-card__img-wrap">
-                <img src={balaji} alt="Heritage Walk" className="trip-card__img" />
+                <img src={shadi} alt="Heritage Walk" className="trip-card__img" />
               </div>
               <h3 className="trip-card__title">{t('story.cultureCard3Title')}</h3>
               <p className="trip-card__desc">
@@ -370,9 +375,13 @@ function MaliTibbaDetail() {
                 <button className="blog-btn blog-btn--outline" id="see-all-blogs-btn" onClick={handleSeeAll}>
                   {t('story.seeAllBtn')}
                 </button>
-                {user && (
+                {user ? (
                   <button className="blog-btn blog-btn--primary" id="publish-blog-btn" onClick={() => setShowPublish(true)}>
                     {t('story.publishBtn')}
+                  </button>
+                ) : (
+                  <button className="blog-btn blog-btn--primary" onClick={() => navigate('/login')}>
+                    {t('common.loginToContribute')}
                   </button>
                 )}
               </div>
@@ -392,9 +401,13 @@ function MaliTibbaDetail() {
               <div className="blog-empty">
                 <span className="blog-empty__icon">📝</span>
                 <p>{t('story.noBlogs')}</p>
-                {user && (
+                {user ? (
                   <button className="blog-btn blog-btn--primary" onClick={() => setShowPublish(true)}>
                     {t('story.publishFirstBtn')}
+                  </button>
+                ) : (
+                  <button className="blog-btn blog-btn--primary" onClick={() => navigate('/login')}>
+                    {t('common.loginToContribute')}
                   </button>
                 )}
               </div>
