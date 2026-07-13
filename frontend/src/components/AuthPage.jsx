@@ -22,7 +22,7 @@ const AuthPage = () => {
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
     const { t } = useTranslation();
-const api = process.env.VITE_API_URL|| 'http://localhost:3003';
+const api = import.meta.env.VITE_API_URL || 'http://localhost:3003';
 
     const fetchQuestions = async () => {
         try {
@@ -52,7 +52,7 @@ const api = process.env.VITE_API_URL|| 'http://localhost:3003';
 
     const submitRegistration = async (verifiedResident) => {
         try {
-            const response = await fetch('http://localhost:3003/api/auth/register', {
+            const response = await fetch(`${api}/api/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ mobile, password, isResident: verifiedResident })
@@ -73,7 +73,7 @@ const api = process.env.VITE_API_URL|| 'http://localhost:3003';
         e.preventDefault();
         setError('');
         try {
-            const response = await fetch('http://localhost:3003/api/auth/login', {
+            const response = await fetch(`${api}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ mobile, password })
@@ -108,36 +108,60 @@ const api = process.env.VITE_API_URL|| 'http://localhost:3003';
     return (
         <div className="auth-page-wrapper">
             <Navbar variant="solid" />
-            <div className="auth-container">
-            <div className={`auth-card ${!isLogin && showQuiz && quizResult === null ? 'auth-card--quiz' : ''}`}>
-                <h2>{isLogin ? t('auth.login') : t('auth.register')}</h2>
-                {error && <p className="auth-error">{error}</p>}
-                
-                {/* LOGIN FORM */}
-                {isLogin && (
-                    <form onSubmit={submitLogin}>
-                        <div className="form-group">
-                            <label>{t('auth.mobileLabel')}</label>
-                            <input 
-                                type="text" 
-                                value={mobile} 
-                                onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))} 
-                                required 
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>{t('auth.passwordLabel')}</label>
-                            <input 
-                                type="password" 
-                                value={password} 
-                                onChange={(e) => setPassword(e.target.value)} 
-                                required 
-                            />
-                        </div>
-                        <button type="submit" className="auth-btn">{t('auth.loginBtn')}</button>
-                        <p className="auth-switch">{t('auth.noAccount')} <span onClick={() => setIsLogin(false)}>{t('auth.registerHere')}</span></p>
-                    </form>
-                )}
+            <div className="auth-split-container">
+                <div className="auth-left-panel">
+                    <button className="back-btn" onClick={() => navigate(-1)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                        Back
+                    </button>
+                    
+                    <div className="auth-header-switch">
+                        {isLogin ? (
+                            <p>{t('auth.noAccount')} <span onClick={() => setIsLogin(false)}>{t('auth.registerHere')}</span></p>
+                        ) : (
+                            <p>{t('auth.hasAccount')} <span onClick={() => setIsLogin(true)}>{t('auth.loginHere')}</span></p>
+                        )}
+                    </div>
+
+                    <div className={`auth-card ${!isLogin && showQuiz && quizResult === null ? 'auth-card--quiz' : ''}`}>
+                        {isLogin && (
+                            <div className="auth-welcome">
+                                <h2>Welcome to <span className="brand-text">Mali Tibba</span></h2>
+                                <p>Where the community meets daily updates, local insights, and honest conversations.</p>
+                            </div>
+                        )}
+                        {!isLogin && !showQuiz && (
+                            <div className="auth-welcome">
+                                <h2>Join <span className="brand-text">Mali Tibba</span></h2>
+                                <p>Create an account to connect with the local community and stay updated.</p>
+                            </div>
+                        )}
+                        {error && <p className="auth-error">{error}</p>}
+                        
+                        {/* LOGIN FORM */}
+                        {isLogin && (
+                            <form onSubmit={submitLogin}>
+                                <div className="form-group">
+                                    <label>{t('auth.mobileLabel')}</label>
+                                    <input 
+                                        type="text" 
+                                        value={mobile} 
+                                        onChange={(e) => setMobile(e.target.value.replace(/\D/g, '').slice(0, 10))} 
+                                        required 
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label>{t('auth.passwordLabel')}</label>
+                                    <input 
+                                        type="password" 
+                                        value={password} 
+                                        onChange={(e) => setPassword(e.target.value)} 
+                                        required 
+                                    />
+                                </div>
+                                <button type="submit" className="auth-btn">{t('auth.loginBtn')}</button>
+                            </form>
+                        )}
 
                 {/* REGISTER FORM */}
                 {!isLogin && !showQuiz && (
@@ -171,7 +195,6 @@ const api = process.env.VITE_API_URL|| 'http://localhost:3003';
                         </div>
                         <p className="auth-note">{t('auth.rememberNote')}</p>
                         <button type="submit" className="auth-btn">{t('auth.continueBtn')}</button>
-                        <p className="auth-switch">{t('auth.hasAccount')} <span onClick={() => setIsLogin(true)}>{t('auth.loginHere')}</span></p>
                     </form>
                 )}
 
@@ -245,7 +268,57 @@ const api = process.env.VITE_API_URL|| 'http://localhost:3003';
                     </div>
                 )}
             </div>
-        </div>
+                </div>
+
+                <div className="auth-right-panel">
+                    <div className="promo-content">
+                        <h2>Your community<br/>deserves to be<br/><span className="highlight">heard.</span></h2>
+                        <div className="promo-cards">
+                            <div className="promo-card">
+                                <div className="promo-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                </div>
+                                <div className="promo-text">
+                                    <h4>Connect & Engage</h4>
+                                    <p>Share your blogs , ideas & grow together</p>
+                                </div>
+                            </div>
+                            <div className="promo-card">
+                                <div className="promo-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                </div>
+                                <div className="promo-text">
+                                    <h4>Communities</h4>
+                                    <p>Be part of the active Mali Tibba communities</p>
+                                </div>
+                            </div>
+                            {/* <div className="promo-card">
+                                <div className="promo-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                </div>
+                                <div className="promo-text">
+                                    <h4>Real-time Chat</h4>
+                                    <p>Message members & engage in conversations</p>
+                                </div>
+                            </div> */}
+                        </div>
+                        <div className="promo-stats">
+                            <div className="stat-item">
+                                <h4>1k+</h4>
+                                <p>MEMBERS</p>
+                            </div>
+                            <div className="stat-item">
+                                <h4>20+</h4>
+                                <p>GROUPS</p>
+                            </div>
+                            <div className="stat-item">
+                                <h4>24/7</h4>
+                                <p>ACTIVE</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
