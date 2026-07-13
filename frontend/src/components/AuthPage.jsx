@@ -22,10 +22,11 @@ const AuthPage = () => {
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
     const { t } = useTranslation();
+    const api = Proccess.env.VITE_API_URL || 'http://localhost:3003';
 
     const fetchQuestions = async () => {
         try {
-            const response = await fetch('http://localhost:3003/api/quiz/questions');
+            const response = await fetch(`${api}/api/quiz/questions`);
             const data = await response.json();
             setQuestions(data);
         } catch (err) {
