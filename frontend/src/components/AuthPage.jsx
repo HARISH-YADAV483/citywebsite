@@ -22,7 +22,7 @@ const AuthPage = () => {
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const api = Proccess.env.VITE_API_URL || 'http://localhost:3003';
+const api = process.env.VITE_API_URL|| 'http://localhost:3003';
 
     const fetchQuestions = async () => {
         try {
