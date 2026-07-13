@@ -282,18 +282,18 @@
   .navbar__links li a {
     font-size: 1.25rem;
     letter-spacing: 2px;
-    color: rgba(79, 39, 68, 0.75);
-    text-shadow: none;
+    color: rgba(79, 39, 68, 0.75) !important;
+    text-shadow: none !important;
   }
 
   .navbar__links li a:hover {
-    color: rgb(79, 39, 68);
+    color: rgb(79, 39, 68) !important;
   }
 
   .navbar__lang-toggle {
-    background: rgba(79, 39, 68, 0.1);
-    border-color: rgba(79, 39, 68, 0.2);
-    color: rgb(79, 39, 68);
+    background: rgba(79, 39, 68, 0.1) !important;
+    border-color: rgba(79, 39, 68, 0.2) !important;
+    color: rgb(79, 39, 68) !important;
     font-size: 1rem;
     padding: 8px 16px;
   }

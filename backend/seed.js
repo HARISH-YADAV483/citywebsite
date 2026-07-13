@@ -25,66 +25,62 @@ const seedData = async () => {
         await mongoose.connect(mongoUri);
         console.log("Connected to MongoDB");
 
-        // 1. Seed 10 questions
-        const count = await QuizQuestion.countDocuments();
-        if (count === 0) {
-            const questions = [
-                {
-                    question: "What is the primary language spoken in Mali Tibba?",
-                    options: ["Hindi", "Garhwali", "Kumaoni", "English"],
-                    correctAnswer: "Garhwali"
-                },
-                {
-                    question: "Which major mountain range is closest to Mali Tibba?",
-                    options: ["Himalayas", "Aravalli", "Vindhya", "Satpura"],
-                    correctAnswer: "Himalayas"
-                },
-                {
-                    question: "What is the most famous temple in Mali Tibba?",
-                    options: ["Kedarnath", "Badrinath", "Mali Tibba Mahadev", "Tungnath"],
-                    correctAnswer: "Mali Tibba Mahadev"
-                },
-                {
-                    question: "Which of the following is a traditional dish of the region?",
-                    options: ["Dosa", "Chainsoo", "Dhokla", "Biryani"],
-                    correctAnswer: "Chainsoo"
-                },
-                {
-                    question: "What is the main occupation of people in Mali Tibba?",
-                    options: ["Fishing", "Agriculture", "Mining", "IT"],
-                    correctAnswer: "Agriculture"
-                },
-                {
-                    question: "Which festival is celebrated with maximum fervor here?",
-                    options: ["Diwali", "Makar Sankranti", "Harela", "Pongal"],
-                    correctAnswer: "Harela"
-                },
-                {
-                    question: "What is the local folk dance called?",
-                    options: ["Bhangra", "Chholiya", "Garba", "Kathak"],
-                    correctAnswer: "Chholiya"
-                },
-                {
-                    question: "Which river flows near Mali Tibba?",
-                    options: ["Ganga", "Yamuna", "Alaknanda", "Kaveri"],
-                    correctAnswer: "Alaknanda"
-                },
-                {
-                    question: "What type of climate is generally experienced in Mali Tibba?",
-                    options: ["Tropical", "Desert", "Temperate/Cold", "Equatorial"],
-                    correctAnswer: "Temperate/Cold"
-                },
-                {
-                    question: "Which tree is most commonly found in the forests of Mali Tibba?",
-                    options: ["Coconut", "Pine (Chir)", "Banyan", "Mango"],
-                    correctAnswer: "Pine (Chir)"
-                }
-            ];
-            await QuizQuestion.insertMany(questions);
-            console.log("Seeded 10 questions successfully.");
-        } else {
-            console.log("Questions already exist, skipping seed.");
-        }
+        // 1. Seed 10 bilingual questions
+        await QuizQuestion.deleteMany({});
+        const questions = [
+            {
+                question: "What is the primary language spoken in Mali Tibba? / माली टिब्बा में मुख्य रूप से कौन सी भाषा बोली जाती है?",
+                options: ["Hindi / हिंदी", "Garhwali / गढ़वाली", "Kumaoni / कुमाउनी", "English / अंग्रेज़ी"],
+                correctAnswer: "Garhwali / गढ़वाली"
+            },
+            {
+                question: "Which major mountain range is closest to Mali Tibba? / माली टिब्बा के सबसे करीब कौन सी प्रमुख पर्वत श्रृंखला है?",
+                options: ["Himalayas / हिमालय", "Aravalli / अरावली", "Vindhya / विंध्य", "Satpura / सतपुड़ा"],
+                correctAnswer: "Himalayas / हिमालय"
+            },
+            {
+                question: "What is the most famous temple in Mali Tibba? / माली टिब्बा का सबसे प्रसिद्ध मंदिर कौन सा है?",
+                options: ["Kedarnath / केदारनाथ", "Badrinath / बद्रीनाथ", "Mali Tibba Mahadev / माली टिब्बा महादेव", "Tungnath / तुंगनाथ"],
+                correctAnswer: "Mali Tibba Mahadev / माली टिब्बा महादेव"
+            },
+            {
+                question: "Which of the following is a traditional dish of the region? / निम्नलिखित में से कौन सा इस क्षेत्र का पारंपरिक व्यंजन है?",
+                options: ["Dosa / डोसा", "Chainsoo / चैंसूं", "Dhokla / ढोकला", "Biryani / बिरयानी"],
+                correctAnswer: "Chainsoo / चैंसूं"
+            },
+            {
+                question: "What is the main occupation of people in Mali Tibba? / माली टिब्बा में लोगों का मुख्य व्यवसाय क्या है?",
+                options: ["Fishing / मछली पकड़ना", "Agriculture / कृषि", "Mining / खनन", "IT / आईटी"],
+                correctAnswer: "Agriculture / कृषि"
+            },
+            {
+                question: "Which festival is celebrated with maximum fervor here? / यहाँ कौन सा त्योहार सबसे अधिक उत्साह के साथ मनाया जाता है?",
+                options: ["Diwali / दिवाली", "Makar Sankranti / मकर संक्रांति", "Harela / हरेला", "Pongal / पोंगल"],
+                correctAnswer: "Harela / हरेला"
+            },
+            {
+                question: "What is the local folk dance called? / स्थानीय लोक नृत्य को क्या कहा जाता है?",
+                options: ["Bhangra / भांगड़ा", "Chholiya / छोलिया", "Garba / गरबा", "Kathak / कथक"],
+                correctAnswer: "Chholiya / छोलिया"
+            },
+            {
+                question: "Which river flows near Mali Tibba? / माली टिब्बा के पास कौन सी नदी बहती है?",
+                options: ["Ganga / गंगा", "Yamuna / यमुना", "Alaknanda / अलकनंदा", "Kaveri / कावेरी"],
+                correctAnswer: "Alaknanda / अलकनंदा"
+            },
+            {
+                question: "What type of climate is generally experienced in Mali Tibba? / माली टिब्बा में आमतौर पर किस प्रकार की जलवायु होती है?",
+                options: ["Tropical / उष्णकटिबंधीय", "Desert / रेगिस्तानी", "Temperate/Cold / समशीतोष्ण/ठंडा", "Equatorial / भूमध्यरेखीय"],
+                correctAnswer: "Temperate/Cold / समशीतोष्ण/ठंडा"
+            },
+            {
+                question: "Which tree is most commonly found in the forests of Mali Tibba? / माली टिब्बा के जंगलों में सबसे अधिक पाया जाने वाला पेड़ कौन सा है?",
+                options: ["Coconut / नारियल", "Pine (Chir) / चीड़ (पाइन)", "Banyan / बरगद", "Mango / आम"],
+                correctAnswer: "Pine (Chir) / चीड़ (पाइन)"
+            }
+        ];
+        await QuizQuestion.insertMany(questions);
+        console.log("Seeded 10 bilingual questions successfully.");
 
         // 2. Migrate existing records to verified
         const blogResult = await Blog.updateMany({ status: { $exists: false } }, { $set: { status: "verified" } });

@@ -6,7 +6,8 @@ import './Navbar.css'
 
 function Navbar({ variant }) {
   const isStory = variant === 'story'
-  const [scrolled, setScrolled] = useState(false)
+  const isSolid = variant === 'solid'
+  const [scrolled, setScrolled] = useState(isSolid)
   const [menuOpen, setMenuOpen] = useState(false)
   const { t, i18n } = useTranslation()
   const [lang, setLang] = useState(i18n.language || 'en')
@@ -22,6 +23,10 @@ function Navbar({ variant }) {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (isSolid) {
+        setScrolled(true)
+        return
+      }
       if (isStory) {
         // Switch from transparent to solid once scrolled past the hero (70vh - navbar height)
         const heroHeight = window.innerHeight * 0.7 - 76
@@ -33,7 +38,7 @@ function Navbar({ variant }) {
     window.addEventListener('scroll', handleScroll)
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [isStory])
+  }, [isStory, isSolid])
 
   // Listen to language changes
   useEffect(() => {

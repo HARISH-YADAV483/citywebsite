@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
+import Navbar from './Navbar';
 import './AuthPage.css';
 
 const AuthPage = () => {
@@ -12,6 +13,7 @@ const AuthPage = () => {
     
     // Quiz state
     const [showQuiz, setShowQuiz] = useState(false);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [questions, setQuestions] = useState([]);
     const [answers, setAnswers] = useState({});
     const [quizResult, setQuizResult] = useState(null); // 'pass', 'fail', null
@@ -40,6 +42,7 @@ const AuthPage = () => {
         }
         if (isResidentClaim) {
             fetchQuestions();
+            setCurrentQuestionIndex(0);
             setShowQuiz(true);
         } else {
             submitRegistration(false);
@@ -102,8 +105,10 @@ const AuthPage = () => {
     };
 
     return (
-        <div className="auth-container">
-            <div className="auth-card">
+        <div className="auth-page-wrapper">
+            <Navbar variant="solid" />
+            <div className="auth-container">
+            <div className={`auth-card ${!isLogin && showQuiz && quizResult === null ? 'auth-card--quiz' : ''}`}>
                 <h2>{isLogin ? t('auth.login') : t('auth.register')}</h2>
                 {error && <p className="auth-error">{error}</p>}
                 
@@ -163,34 +168,59 @@ const AuthPage = () => {
                             />
                             <label htmlFor="residentCheck">{t('auth.residentCheck')}</label>
                         </div>
+                        <p className="auth-note">{t('auth.rememberNote')}</p>
                         <button type="submit" className="auth-btn">{t('auth.continueBtn')}</button>
                         <p className="auth-switch">{t('auth.hasAccount')} <span onClick={() => setIsLogin(true)}>{t('auth.loginHere')}</span></p>
                     </form>
                 )}
 
                 {/* QUIZ SECTION */}
-                {!isLogin && showQuiz && quizResult === null && (
+                {!isLogin && showQuiz && quizResult === null && questions.length > 0 && (
                     <div className="quiz-section">
-                        <h3>{t('auth.quizTitle')}</h3>
+                        <div className="quiz-header">
+                            <h3>{t('auth.quizTitle')}</h3>
+                            <span className="quiz-progress">{currentQuestionIndex + 1} / {questions.length}</span>
+                        </div>
                         <p>{t('auth.quizDesc')}</p>
-                        {questions.map((q, qIndex) => (
-                            <div key={qIndex} className="quiz-question">
-                                <p><strong>{qIndex + 1}. {q.question}</strong></p>
-                                {q.options.map((opt, oIndex) => (
-                                    <label key={oIndex} className="quiz-option">
+                        
+                        <div className="quiz-question">
+                            <p><strong>Q{currentQuestionIndex + 1}. {questions[currentQuestionIndex].question}</strong></p>
+                            <div className="quiz-options">
+                                {questions[currentQuestionIndex].options.map((opt, oIndex) => (
+                                    <label key={oIndex} className={`quiz-option ${answers[currentQuestionIndex] === opt ? 'selected' : ''}`}>
                                         <input 
                                             type="radio" 
-                                            name={`question-${qIndex}`} 
+                                            name={`question-${currentQuestionIndex}`} 
                                             value={opt}
-                                            checked={answers[qIndex] === opt}
-                                            onChange={() => setAnswers({...answers, [qIndex]: opt})}
+                                            checked={answers[currentQuestionIndex] === opt}
+                                            onChange={() => setAnswers({...answers, [currentQuestionIndex]: opt})}
                                         />
                                         {opt}
                                     </label>
                                 ))}
                             </div>
-                        ))}
-                        <button className="auth-btn" onClick={handleQuizSubmit}>{t('auth.submitAnswers')}</button>
+                        </div>
+                        
+                        <div className="quiz-nav-actions">
+                            <button 
+                                className="auth-btn secondary quiz-nav-btn" 
+                                onClick={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
+                                disabled={currentQuestionIndex === 0}
+                            >
+                                {t('auth.prevBtn')}
+                            </button>
+                            
+                            {currentQuestionIndex < questions.length - 1 ? (
+                                <button 
+                                    className="auth-btn quiz-nav-btn" 
+                                    onClick={() => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))}
+                                >
+                                    {t('auth.nextBtn')}
+                                </button>
+                            ) : (
+                                <button className="auth-btn quiz-nav-btn" onClick={handleQuizSubmit}>{t('auth.submitAnswers')}</button>
+                            )}
+                        </div>
                     </div>
                 )}
 
@@ -214,6 +244,7 @@ const AuthPage = () => {
                     </div>
                 )}
             </div>
+        </div>
         </div>
     );
 };

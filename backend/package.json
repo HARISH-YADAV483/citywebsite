@@ -21,6 +21,7 @@
     "mongoose": "^9.6.1",
     "multer": "^2.2.0",
     "multer-storage-cloudinary": "^4.0.0",
-    "sharp": "^0.35.2"
+    "sharp": "^0.35.2",
+    "translate-google": "^1.5.0"
   }
 }

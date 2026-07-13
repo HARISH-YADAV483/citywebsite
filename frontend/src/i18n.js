@@ -58,7 +58,10 @@ const resources = {
         mobileError: "Mobile number must be exactly 10 digits",
         regFailed: "Registration failed",
         loginFailed: "Login failed",
-        errorOccurred: "An error occurred"
+        errorOccurred: "An error occurred",
+        rememberNote: "Note: Remember this phone number and password for future logins.",
+        prevBtn: "Previous",
+        nextBtn: "Next"
       },
       footer: {
         localityLabel: "Locality Name:",
@@ -171,8 +174,8 @@ const resources = {
         photos: "photos",
         modalTitle: "📸 Contribute a Photo",
         photoTitlePlaceholder: "Give your photo a descriptive title…",
-        successMsg: "Photo Uploaded!",
-        successSub: "Your photo is now part of the Mali Tibba gallery.",
+        successMsg: "Thanks for contributing!",
+        successSub: "Your contribution is sent for verification. After successful verification, it will be visible on the page.",
         uploadBtn: "Upload to Gallery →"
       },
       story: {
@@ -216,8 +219,8 @@ const resources = {
         allBlogsTitle: "All Community Blogs",
         noBlogsPublished: "No blogs published yet.",
         publishModalTitle: "✍️ Publish a Blog",
-        publishSuccessMsg: "Blog Published!",
-        publishSuccessSub: "Your story is now live on Mali Tibba.",
+        publishSuccessMsg: "Thanks for contributing!",
+        publishSuccessSub: "Your blog is sent for verification. After successful verification, it will be visible on the page.",
         clickToUpload: "Click to upload a cover image",
         max1Image: "JPG, PNG, WEBP — max 1 image",
         removeImg: "Remove image ✕",
@@ -241,8 +244,8 @@ const resources = {
         badge: "📍 Mali Tibba Community Blog"
       },
       common: {
-        successMsg: "Photo Uploaded!",
-        successSub: "Your photo is now part of the Mali Tibba collection.",
+        successMsg: "Thanks for contributing!",
+        successSub: "Your contribution is sent for verification. After successful verification, it will be visible on the page.",
         clickChoose: "Click to choose a photo",
         supportedFormats: "JPG, PNG, WEBP supported",
         removeImg: "Remove ✕",
@@ -316,7 +319,10 @@ const resources = {
         mobileError: "मोबाइल नंबर बिल्कुल 10 अंकों का होना चाहिए",
         regFailed: "पंजीकरण विफल रहा",
         loginFailed: "लॉगिन विफल रहा",
-        errorOccurred: "एक त्रुटि हुई"
+        errorOccurred: "एक त्रुटि हुई",
+        rememberNote: "नोट: भविष्य में लॉगिन के लिए कृपया इस फोन नंबर और पासवर्ड को याद रखें।",
+        prevBtn: "पिछला",
+        nextBtn: "अगला"
       },
       footer: {
         localityLabel: "मोहल्ले का नाम:",
@@ -429,8 +435,8 @@ const resources = {
         photos: "तस्वीरें",
         modalTitle: "📸 एक तस्वीर का योगदान करें",
         photoTitlePlaceholder: "अपनी तस्वीर को एक वर्णनात्मक शीर्षक दें…",
-        successMsg: "तस्वीर अपलोड हो गई!",
-        successSub: "आपकी तस्वीर अब माली टिब्बा गैलरी का हिस्सा है।",
+        successMsg: "योगदान देने के लिए धन्यवाद!",
+        successSub: "आपका योगदान सत्यापन के लिए भेजा गया है। सफल सत्यापन के बाद, यह पृष्ठ पर दिखाई देगा।",
         uploadBtn: "गैलरी में अपलोड करें →"
       },
       story: {
@@ -474,8 +480,8 @@ const resources = {
         allBlogsTitle: "सभी सामुदायिक ब्लॉग",
         noBlogsPublished: "अभी तक कोई ब्लॉग प्रकाशित नहीं हुआ है।",
         publishModalTitle: "✍️ एक ब्लॉग प्रकाशित करें",
-        publishSuccessMsg: "ब्लॉग प्रकाशित!",
-        publishSuccessSub: "आपकी कहानी अब माली टिब्बा पर लाइव है।",
+        publishSuccessMsg: "योगदान देने के लिए धन्यवाद!",
+        publishSuccessSub: "आपका ब्लॉग सत्यापन के लिए भेजा गया है। सफल सत्यापन के बाद, यह पृष्ठ पर दिखाई देगा।",
         clickToUpload: "कवर छवि अपलोड करने के लिए क्लिक करें",
         max1Image: "JPG, PNG, WEBP — अधिकतम 1 छवि",
         removeImg: "छवि हटाएं ✕",
@@ -499,8 +505,8 @@ const resources = {
         badge: "📍 माली टिब्बा सामुदायिक ब्लॉग"
       },
       common: {
-        successMsg: "तस्वीर अपलोड हो गई!",
-        successSub: "आपकी तस्वीर अब माली टिब्बा संग्रह का हिस्सा है।",
+        successMsg: "योगदान देने के लिए धन्यवाद!",
+        successSub: "आपका योगदान सत्यापन के लिए भेजा गया है। सफल सत्यापन के बाद, यह पृष्ठ पर दिखाई देगा।",
         clickChoose: "तस्वीर चुनने के लिए क्लिक करें",
         supportedFormats: "JPG, PNG, WEBP समर्थित",
         removeImg: "हटाएं ✕",
